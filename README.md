@@ -28,6 +28,8 @@ O NPC não tem destino. O NPC tem um circulo na sua frente aonde a cada frame el
 
 ### Pursuit
 A versão inteligente do Seek. ao invés de seguir fielmente o jogador e estar sempre atrasado ele preve aonde o jogador vai com e tenta chegar antes do jogador, fazzendo isso através de um fator de prediçao que diz o quão adiantado ele deve ficar em relaçao ao movimento do jogador.
+
+
 ---
 
 ## Como jogar
