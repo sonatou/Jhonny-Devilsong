@@ -5,10 +5,9 @@
 
 ## O que é isso?
 
-Este projeto implementa cinco Steering Behaviors clássicos de Craig Reynolds em Unity.
-A ideia é simples: você controla um personagem que caminha por salas, e em cada sala
-um NPC demonstra um comportamento diferente de movimentação autônoma.
-
+Cinco Steering Behaviors clássicos do Craig Reynolds implementados em Unity.
+A ideia é simples: você anda por salas com um personagem, e em cada sala tem um NPC
+mostrando um comportamento diferente de movimentação autônoma.
 
 ---
 
@@ -18,7 +17,7 @@ um NPC demonstra um comportamento diferente de movimentação autônoma.
 O NPC mira na sua posição atual e vai direto ao ponto. É o comportamento base para os outros mas é um comportamento burro aonde o NPC apenas vai atras do player e fica sempre atrasado em relaçao a movimentaçao do jogador.
 
 ### Flee
-O oposto do Seek. Ao jogador entrar em um Raio de panico do NPC ele corre para direçao oposta ao jogador. 
+O oposto do Seek. Ao jogador entrar em um Raio de panico do NPC ele corre para direçao oposta ao jogador.
 
 ### Arrival
 Parecido com o Seek, mas com controle. Faz com que o NPC siga o jogador como no seek mas ao chegar a uma certa distancia começa a desacelerar até parar completamente ao chegar no jogador ou alvo (neste caso jogador).
@@ -29,18 +28,16 @@ O NPC não tem destino. O NPC tem um circulo na sua frente aonde a cada frame el
 ### Pursuit
 A versão inteligente do Seek. ao invés de seguir fielmente o jogador e estar sempre atrasado ele preve aonde o jogador vai com e tenta chegar antes do jogador, fazzendo isso através de um fator de prediçao que diz o quão adiantado ele deve ficar em relaçao ao movimento do jogador.
 
-
 ---
 
 ## Como jogar
 
-1. Abra a cena `Hub` e pressione **Play**
-2. Mova o personagem com **WASD** ou as **setas do teclado**
-3. Chegue perto de uma porta e pressione **E** para entrar na sala
-4. Para voltar ao Hub, vá até a porta no canto da sala e pressione **E**
+1. Abra a cena `Main` e aperta **Play**
+2. Move o personagem com **WASD** ou as **setas do teclado**
+3. Chega perto de uma porta e aperta **E** para entrar na sala
+4. Para voltar ao Hub, vai até a porta no canto da sala e aperta **E**
 
-Cada sala tem um NPC com um comportamento diferente. Não tem ordem certa — explore
-como quiser.
+Cada sala tem um NPC diferente. Não tem ordem certa — entra em qualquer uma.
 
 ---
 
@@ -70,15 +67,15 @@ Assets/
 
 ## Problemas que apareceram no caminho
 
-**O NPC de Arrival ficava empurrando o jogador** — O cálculo de parada usava distância
-entre centros dos objetos, mas os colliders se tocavam antes disso. Resolvi usando
-`OnCollisionEnter2D` para detectar o contato real e zerar a velocidade no momento
-exato, em vez de tentar adivinhar a distância certa.
+**NPC de Arrival ficava empurrando o jogador** — O cálculo de parada usava distância
+entre os centros dos objetos, mas os colliders já se tocavam antes disso. Resolvi usando
+`OnCollisionEnter2D` pra detectar o contato real e zerar a velocidade na hora certa,
+em vez de tentar adivinhar a distância.
 
-**O NPC de Wander travava nas paredes** — Quando batia, a velocidade zerava e ele
-perdia a direção de referência, ficando parado. Resolvi guardando a última direção
-válida em uma variável separada. Ao colidir, inverte essa direção e rotaciona o ângulo
-de wander fazzendo com que ele se afaste da parede como se tivesse batido e voltado.
+**NPC de Wander travava nas paredes** — Quando batia, a velocidade zerava e ele perdia
+a direção de referência, ficando parado. Resolvi guardando a última direção válida numa
+variável separada. Ao colidir, inverte essa direção e rotaciona o ângulo de wander,
+fazendo ele se afastar da parede como se tivesse batido e voltado.
 
 ---
 
