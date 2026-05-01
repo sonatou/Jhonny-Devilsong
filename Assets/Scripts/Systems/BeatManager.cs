@@ -1,23 +1,19 @@
 using UnityEngine;
 using System;
 
-public enum HitQuality
-{
-    Perfect,
-    Good,
-    Miss
-}
+public enum HitQuality { Perfect, Good, Miss }
+
 public class BeatManager : MonoBehaviour
 {
     public static BeatManager Instance { get; private set; }
 
     [Header("Configuração")]
-    public float bpm = 120f;
-    public AudioSource audioSource;
+    [SerializeField] private float bpm = 120f;
+    [SerializeField] private AudioSource audioSource;
 
     [Header("Janela de Acerto")]
-    [Range(0f, 0.3f)] public float perfectWindow = 0.05f;
-    [Range(0f, 0.3f)] public float goodWindow = 0.15f;
+    [SerializeField, Range(0f, 0.3f)] private float perfectWindow = 0.05f;
+    [SerializeField, Range(0f, 0.3f)] private float goodWindow = 0.15f;
 
     public event Action OnBeat;
 
@@ -49,7 +45,6 @@ public class BeatManager : MonoBehaviour
     void Update()
     {
         double currentTime = AudioSettings.dspTime;
-
         BeatProgress = (float)((currentTime - _lastBeatTime) / BeatInterval);
 
         if (currentTime >= _nextBeatTime)
@@ -71,7 +66,6 @@ public class BeatManager : MonoBehaviour
     public HitQuality GetHitQuality()
     {
         float accuracy = GetAccuracy();
-
         if (accuracy <= perfectWindow) return HitQuality.Perfect;
         if (accuracy <= goodWindow) return HitQuality.Good;
         return HitQuality.Miss;

@@ -3,16 +3,15 @@ using UnityEngine.UI;
 
 public class HealthDisplay : MonoBehaviour
 {
-    public Image[] hearts;
-    public Color aliveColor = Color.red;
-    public Color deadColor = new Color(1f, 1f, 1f, 0.2f);
+    [SerializeField] private Image[] hearts;
+    [SerializeField] private Color aliveColor = Color.red;
+    [SerializeField] private Color deadColor = new Color(1f, 1f, 1f, 0.2f);
 
     private PlayerHealth _playerHealth;
 
     void Start()
     {
         _playerHealth = FindAnyObjectByType<PlayerHealth>();
-
         if (_playerHealth == null) return;
 
         _playerHealth.OnHealthChanged += UpdateHearts;

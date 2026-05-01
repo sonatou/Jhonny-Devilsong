@@ -1,32 +1,33 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class BulletSpawner : MonoBehaviour
 {
     [Header("Projétil")]
-    public GameObject bulletPrefab;
-    public Transform firePoint;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform firePoint;
 
     [Header("Cooldown")]
-    public float fireCooldown = 0.3f;
+    [SerializeField] private float fireCooldown = 0.3f;
 
     [Header("Perfect")]
-    public float perfectSpeed = 14f;
-    public int perfectDamage = 3;
-    public float perfectScale = 1.5f;
-    public Color perfectColor = Color.yellow;
+    [SerializeField] private float perfectSpeed = 14f;
+    [SerializeField] private int perfectDamage = 3;
+    [SerializeField] private float perfectScale = 1.5f;
+    [SerializeField] private Color perfectColor = Color.yellow;
 
     [Header("Good")]
-    public float goodSpeed = 10f;
-    public int goodDamage = 2;
-    public float goodScale = 1f;
-    public Color goodColor = Color.white;
+    [SerializeField] private float goodSpeed = 10f;
+    [SerializeField] private int goodDamage = 2;
+    [SerializeField] private float goodScale = 1f;
+    [SerializeField] private Color goodColor = Color.white;
 
     [Header("Miss")]
-    public float missSpeed = 7f;
-    public int missDamage = 1;
-    public float missScale = 0.6f;
-    public Color missColor = new Color(1f, 1f, 1f, 0.4f);
+    [SerializeField] private float missSpeed = 7f;
+    [SerializeField] private int missDamage = 1;
+    [SerializeField] private float missScale = 0.6f;
+    [SerializeField] private Color missColor = new Color(1f, 1f, 1f, 0.4f);
 
     private InputSystem_Actions _actions;
     private float _lastFireTime = -Mathf.Infinity;
@@ -90,5 +91,6 @@ public class BulletSpawner : MonoBehaviour
         }
 
         bullet.Init(firePoint.up);
+        ScoreManager.Instance.AddScore(quality);
     }
 }

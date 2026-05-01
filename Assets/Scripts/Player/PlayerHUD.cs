@@ -3,7 +3,7 @@ using TMPro;
 
 public class PlayerHUD : MonoBehaviour
 {
-    public TMP_Text promptText;
+    [SerializeField] private TMP_Text promptText;
 
     void Awake() => HidePrompt();
 
