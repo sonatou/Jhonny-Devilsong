@@ -4,6 +4,9 @@ using UnityEngine.SceneManagement;
 
 public class BulletSpawner : MonoBehaviour
 {
+    [Header("UI")]
+    [SerializeField] private BeatIndicator beatIndicator;
+
     [Header("Projétil")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
@@ -92,5 +95,6 @@ public class BulletSpawner : MonoBehaviour
 
         bullet.Init(firePoint.up);
         ScoreManager.Instance.AddScore(quality);
+        beatIndicator?.NotifyShot(quality);
     }
 }

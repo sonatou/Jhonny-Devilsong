@@ -3,27 +3,46 @@ using UnityEngine.UI;
 
 public class BeatIndicatorFragment : MonoBehaviour
 {
+    public double BeatTime { get; private set; }
+
     private RectTransform _rt;
     private Image _image;
-    private float _startX;
+    private float _hitLineX;
     private float _speed;
 
-    public void Init(float startX, Color color, float speed)
+    [SerializeField] private Color goodColor = new Color(0f, 1f, 0f, 0.8f);
+
+    public void Init(double beatTime, float hitLineX, Color color, float speed)
     {
         _rt = GetComponent<RectTransform>();
         _image = GetComponent<Image>();
-        _startX = startX;
+        _hitLineX = hitLineX;
         _speed = speed;
+        BeatTime = beatTime;
 
-        _rt.anchoredPosition = new Vector2(startX, 0f);
         _image.color = color;
+        UpdatePosition();
     }
 
     void Update()
     {
-        _rt.anchoredPosition += Vector2.left * _speed * Time.deltaTime;
+        UpdatePosition();
 
-        if (_rt.anchoredPosition.x < -(_startX + 20f))
+        if (AudioSettings.dspTime > BeatTime + 0.3f)
             Destroy(gameObject);
+    }
+
+    void UpdatePosition()
+    {
+        double timeUntilBeat = BeatTime - AudioSettings.dspTime;
+        _rt.anchoredPosition = new Vector2(_hitLineX + (float)(timeUntilBeat * _speed), 0f);
+    }
+
+    public void OnPerfect() => Destroy(gameObject);
+
+    public void OnGood()
+    {
+        _image.color = goodColor;
+        Destroy(gameObject);
     }
 }
