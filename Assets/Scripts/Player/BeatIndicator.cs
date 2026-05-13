@@ -8,13 +8,11 @@ public class BeatIndicator : MonoBehaviour
     [SerializeField] private RectTransform bar;
     [SerializeField] private Image hitZoneImage;
     [SerializeField] private Image perfectZoneImage;
-    [SerializeField] private BeatIndicatorFragment beatIndicatorFragment;
 
-    [Header("Configuração")]
-    [SerializeField] private int fragmentsAhead = 3;
-    [SerializeField] private float fragmentSpeed = 200f;
-    [SerializeField] private Color fragmentColor = Color.white;
-    [SerializeField] private Color goodZoneColor = new Color(1f, 1f, 1f, 0.3f);
+    [Header("Configuracao")]
+    [SerializeField] private int   fragmentsAhead   = 3;
+    [SerializeField] private Color fragmentColor    = Color.white;
+    [SerializeField] private Color goodZoneColor    = new Color(1f, 1f, 1f, 0.3f);
     [SerializeField] private Color perfectZoneColor = new Color(1f, 0.9f, 0f, 0.4f);
 
     private float _barWidth;
@@ -42,20 +40,21 @@ public class BeatIndicator : MonoBehaviour
         if (hitZoneImage == null) return;
 
         hitZoneImage.color = goodZoneColor;
-        hitZoneImage.rectTransform.sizeDelta = new Vector2(30f, bar.rect.height);
+        hitZoneImage.rectTransform.sizeDelta        = new Vector2(30f, bar.rect.height);
         hitZoneImage.rectTransform.anchoredPosition = new Vector2(_hitLineX, 0f);
 
         if (perfectZoneImage == null) return;
 
         perfectZoneImage.color = perfectZoneColor;
-        perfectZoneImage.rectTransform.sizeDelta = new Vector2(10f, bar.rect.height);
+        perfectZoneImage.rectTransform.sizeDelta        = new Vector2(10f, bar.rect.height);
         perfectZoneImage.rectTransform.anchoredPosition = Vector2.zero;
     }
 
     void OnBeat()
     {
         _lastBeatTime = AudioSettings.dspTime;
-        float beatInterval = BeatManager.Instance.BeatInterval;
+        float beatInterval    = BeatManager.Instance.BeatInterval;
+        float calculatedSpeed = (_barWidth * 0.8f) / beatInterval;
 
         _fragments.RemoveAll(f => f == null);
 
@@ -63,9 +62,9 @@ public class BeatIndicator : MonoBehaviour
         {
             double beatTime = _lastBeatTime + beatInterval * i;
 
-            GameObject obj = Instantiate(fragmentPrefab, bar);
+            GameObject obj             = Instantiate(fragmentPrefab, bar);
             BeatIndicatorFragment frag = obj.GetComponent<BeatIndicatorFragment>();
-            frag.Init(beatTime, _hitLineX, fragmentColor, fragmentSpeed);
+            frag.Init(beatTime, _hitLineX, fragmentColor, calculatedSpeed);
             _fragments.Add(frag);
         }
     }
@@ -73,30 +72,22 @@ public class BeatIndicator : MonoBehaviour
     public void NotifyShot(HitQuality quality)
     {
         _fragments.RemoveAll(f => f == null);
-        Debug.Log($"NotifyShot chamado — quality: {quality}, fragments ativos: {_fragments.Count}");
 
-        double currentTime = AudioSettings.dspTime;
+        double currentTime            = AudioSettings.dspTime;
         BeatIndicatorFragment closest = null;
-        double closestTimeDiff = double.MaxValue;
+        double closestTimeDiff        = double.MaxValue;
 
         foreach (var f in _fragments)
         {
             double diff = System.Math.Abs(f.BeatTime - currentTime);
-            Debug.Log($"Fragment BeatTime: {f.BeatTime:F3}, currentTime: {currentTime:F3}, diff: {diff:F3}");
             if (diff < closestTimeDiff)
             {
                 closestTimeDiff = diff;
-                closest = f;
+                closest         = f;
             }
         }
 
-        if (closest == null)
-        {
-            Debug.Log("Nenhum fragment encontrado");
-            return;
-        }
-
-        Debug.Log($"Fragment mais próximo — diff: {closestTimeDiff:F3}");
+        if (closest == null) return;
 
         switch (quality)
         {

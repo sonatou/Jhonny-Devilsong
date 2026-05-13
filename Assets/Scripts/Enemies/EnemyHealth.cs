@@ -3,9 +3,11 @@ using System;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public int maxHealth = 1;
+    [SerializeField] private int maxHealth = 1;
 
     public event Action OnDeath;
+    public event Action OnHit;
+
 
     private int _currentHealth;
 
@@ -14,9 +16,10 @@ public class EnemyHealth : MonoBehaviour
         _currentHealth = maxHealth;
     }
 
-    public void TakeDamage(int amount)
+public void TakeDamage(int amount)
     {
         _currentHealth -= amount;
+        OnHit?.Invoke();
 
         if (_currentHealth <= 0)
         {

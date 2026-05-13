@@ -10,9 +10,9 @@ public class RoomCombat : MonoBehaviour
     private bool _triggered = false;
     private bool _cleared = false;
 
-    void Start()
+void Start()
     {
-        _doors = FindObjectsByType<RoomTransition>();
+        _doors = FindObjectsByType<RoomTransition>(FindObjectsSortMode.None);
     }
 
     void Update()
