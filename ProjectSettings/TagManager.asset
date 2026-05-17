@@ -17,7 +17,7 @@ TagManager:
   - Bullets
   - EnemyBullets
   - Enemy
-  - 
+  - BeatUI
   - 
   - 
   - 
@@ -43,6 +43,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BeatUI
+    uniqueID: 3089602547
     locked: 0
   m_RenderingLayers:
   - Default

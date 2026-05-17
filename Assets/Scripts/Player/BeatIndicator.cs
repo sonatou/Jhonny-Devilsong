@@ -1,31 +1,33 @@
 using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class BeatIndicator : MonoBehaviour
 {
+    [Header("Prefabs")]
     [SerializeField] private GameObject fragmentPrefab;
-    [SerializeField] private RectTransform bar;
-    [SerializeField] private Image hitZoneImage;
-    [SerializeField] private Image perfectZoneImage;
+
+    [Header("Referencias")]
+    [SerializeField] private Transform      barBackground;
+    [SerializeField] private SpriteRenderer hitZone;
+    [SerializeField] private SpriteRenderer perfectZone;
 
     [Header("Configuracao")]
-    [SerializeField] private int   fragmentsAhead   = 3;
+    [SerializeField] private int   fragmentsAhead   = 1;
     [SerializeField] private Color fragmentColor    = Color.white;
     [SerializeField] private Color goodZoneColor    = new Color(1f, 1f, 1f, 0.3f);
     [SerializeField] private Color perfectZoneColor = new Color(1f, 0.9f, 0f, 0.4f);
 
-    private float _barWidth;
-    private float _hitLineX;
+    private float  _barWidth;
+    private float  _hitLineOffset;
     private double _lastBeatTime;
     private List<BeatIndicatorFragment> _fragments = new List<BeatIndicatorFragment>();
 
     void Start()
     {
-        _barWidth = bar.rect.width;
-        _hitLineX = -_barWidth * 0.5f + _barWidth * 0.2f;
+        _barWidth      = barBackground != null ? barBackground.localScale.x : 2f;
+        _hitLineOffset = -_barWidth * 0.5f + _barWidth * 0.2f;
 
-        SetupHitZone();
+        SetupVisuals();
         BeatManager.Instance.OnBeat += OnBeat;
     }
 
@@ -35,19 +37,19 @@ public class BeatIndicator : MonoBehaviour
             BeatManager.Instance.OnBeat -= OnBeat;
     }
 
-    void SetupHitZone()
+    void SetupVisuals()
     {
-        if (hitZoneImage == null) return;
+        if (hitZone != null)
+        {
+            hitZone.color = goodZoneColor;
+            hitZone.transform.localPosition = new Vector3(_hitLineOffset, 0f, 0f);
+        }
 
-        hitZoneImage.color = goodZoneColor;
-        hitZoneImage.rectTransform.sizeDelta        = new Vector2(30f, bar.rect.height);
-        hitZoneImage.rectTransform.anchoredPosition = new Vector2(_hitLineX, 0f);
-
-        if (perfectZoneImage == null) return;
-
-        perfectZoneImage.color = perfectZoneColor;
-        perfectZoneImage.rectTransform.sizeDelta        = new Vector2(10f, bar.rect.height);
-        perfectZoneImage.rectTransform.anchoredPosition = Vector2.zero;
+        if (perfectZone != null)
+        {
+            perfectZone.color = perfectZoneColor;
+            perfectZone.transform.localPosition = new Vector3(_hitLineOffset, 0f, 0f);
+        }
     }
 
     void OnBeat()
@@ -62,9 +64,9 @@ public class BeatIndicator : MonoBehaviour
         {
             double beatTime = _lastBeatTime + beatInterval * i;
 
-            GameObject obj             = Instantiate(fragmentPrefab, bar);
+            GameObject obj             = Instantiate(fragmentPrefab);
             BeatIndicatorFragment frag = obj.GetComponent<BeatIndicatorFragment>();
-            frag.Init(beatTime, _hitLineX, fragmentColor, calculatedSpeed);
+            frag.Init(beatTime, _hitLineOffset, fragmentColor, calculatedSpeed, barBackground, _barWidth);
             _fragments.Add(frag);
         }
     }
@@ -79,7 +81,12 @@ public class BeatIndicator : MonoBehaviour
 
         foreach (var f in _fragments)
         {
-            double diff = System.Math.Abs(f.BeatTime - currentTime);
+            double timeUntilBeat = f.BeatTime - currentTime;
+
+            // so considera fragmentos que ja estao proximos ou passando da hit zone
+            if (timeUntilBeat > 0.3f) continue;
+
+            double diff = System.Math.Abs(timeUntilBeat);
             if (diff < closestTimeDiff)
             {
                 closestTimeDiff = diff;
