@@ -462,13 +462,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatIndicator
   fragmentPrefab: {fileID: 118999752807380129, guid: b5d0ec224e70d124da6d61fb69db0e98, type: 3}
-  barAnchor: {fileID: 825826989749505289}
-  barBackground: {fileID: 8453986295838999424}
+  barBackground: {fileID: 3901664130242707349}
   hitZone: {fileID: 1279124384352551140}
   perfectZone: {fileID: 3687371770989856964}
   fragmentsAhead: 3
-  barWidth: 1
-  barHeight: 1
   fragmentColor: {r: 1, g: 1, b: 1, a: 1}
   goodZoneColor: {r: 1, g: 1, b: 1, a: 0.3}
   perfectZoneColor: {r: 1, g: 0.9, b: 0, a: 0.4}

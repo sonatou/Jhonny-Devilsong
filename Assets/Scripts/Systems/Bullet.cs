@@ -2,15 +2,17 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] public float speed = 10f;
-    [SerializeField] public int damage = 1;
+    [SerializeField] public float speed  = 10f;
+    [SerializeField] public int   damage = 1;
     [SerializeField] private float lifetime = 3f;
 
-    private Vector2 _direction;
+    private Vector2    _direction;
+    private HitQuality _quality;
 
-    public void Init(Vector2 direction)
+    public void Init(Vector2 direction, HitQuality quality)
     {
         _direction = direction.normalized;
+        _quality   = quality;
         Destroy(gameObject, lifetime);
     }
 
@@ -25,7 +27,10 @@ public class Bullet : MonoBehaviour
 
         EnemyHealth health = other.GetComponent<EnemyHealth>();
         if (health != null)
+        {
             health.TakeDamage(damage);
+            ScoreManager.Instance?.RegisterHit(_quality);
+        }
 
         Destroy(gameObject);
     }

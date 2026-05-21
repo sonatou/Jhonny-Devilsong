@@ -1,20 +1,22 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 5;
+    [SerializeField] private int   maxHealth            = 5;
     [SerializeField] private float invincibilityDuration = 1f;
-    [SerializeField] private float flashInterval = 0.1f;
+    [SerializeField] private float flashInterval         = 0.1f;
+    [SerializeField] private string gameOverScene        = "GameOver";
 
     public event Action<int> OnHealthChanged;
-    public event Action OnDeath;
+    public event Action      OnDeath;
 
     public int CurrentHealth => _currentHealth;
 
-    private int _currentHealth;
-    private bool _isInvincible = false;
+    private int            _currentHealth;
+    private bool           _isInvincible = false;
     private SpriteRenderer _sr;
 
     void Awake()
@@ -37,7 +39,9 @@ public class PlayerHealth : MonoBehaviour
         if (_currentHealth <= 0)
         {
             OnDeath?.Invoke();
+            ScoreManager.Instance?.SaveRun();
             Destroy(gameObject);
+            SceneManager.LoadScene(gameOverScene);
             return;
         }
 
@@ -56,7 +60,7 @@ public class PlayerHealth : MonoBehaviour
             elapsed += flashInterval;
         }
 
-        _sr.enabled = true;
+        _sr.enabled   = true;
         _isInvincible = false;
     }
 }

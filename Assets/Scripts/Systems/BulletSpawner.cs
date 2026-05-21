@@ -7,7 +7,7 @@ public class BulletSpawner : MonoBehaviour
     [Header("UI")]
     [SerializeField] private BeatIndicator beatIndicator;
 
-    [Header("Projétil")]
+    [Header("Projï¿½til")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
 
@@ -59,42 +59,41 @@ public class BulletSpawner : MonoBehaviour
         Shoot();
     }
 
-    void Shoot()
+void Shoot()
     {
         if (bulletPrefab == null || firePoint == null) return;
 
         HitQuality quality = BeatManager.Instance.GetHitQuality();
 
-        GameObject obj = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Bullet bullet = obj.GetComponent<Bullet>();
+        GameObject obj    = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Bullet bullet     = obj.GetComponent<Bullet>();
         SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
 
         switch (quality)
         {
             case HitQuality.Perfect:
-                bullet.speed = perfectSpeed;
+                bullet.speed  = perfectSpeed;
                 bullet.damage = perfectDamage;
                 obj.transform.localScale = Vector3.one * perfectScale;
                 if (sr != null) sr.color = perfectColor;
                 break;
 
             case HitQuality.Good:
-                bullet.speed = goodSpeed;
+                bullet.speed  = goodSpeed;
                 bullet.damage = goodDamage;
                 obj.transform.localScale = Vector3.one * goodScale;
                 if (sr != null) sr.color = goodColor;
                 break;
 
             case HitQuality.Miss:
-                bullet.speed = missSpeed;
+                bullet.speed  = missSpeed;
                 bullet.damage = missDamage;
                 obj.transform.localScale = Vector3.one * missScale;
                 if (sr != null) sr.color = missColor;
                 break;
         }
 
-        bullet.Init(firePoint.up);
-        ScoreManager.Instance.AddScore(quality);
+        bullet.Init(firePoint.up, quality);
         beatIndicator?.NotifyShot(quality);
     }
 }

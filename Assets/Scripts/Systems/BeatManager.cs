@@ -7,7 +7,7 @@ public class BeatManager : MonoBehaviour
 {
     public static BeatManager Instance { get; private set; }
 
-    [Header("Configuração")]
+    [Header("Configuraï¿½ï¿½o")]
     [SerializeField] private float bpm = 120f;
     [SerializeField] private AudioSource audioSource;
 
@@ -63,11 +63,14 @@ public class BeatManager : MonoBehaviour
         return (float)Math.Min(distToLast, distToNext);
     }
 
+public float GoodWindow    => goodWindow;
+    public float PerfectWindow => perfectWindow;
+
     public HitQuality GetHitQuality()
     {
         float accuracy = GetAccuracy();
         if (accuracy <= perfectWindow) return HitQuality.Perfect;
-        if (accuracy <= goodWindow) return HitQuality.Good;
+        if (accuracy <= goodWindow)   return HitQuality.Good;
         return HitQuality.Miss;
     }
 }

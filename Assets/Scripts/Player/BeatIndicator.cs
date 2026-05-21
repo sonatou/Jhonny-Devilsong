@@ -7,6 +7,7 @@ public class BeatIndicator : MonoBehaviour
     [SerializeField] private GameObject fragmentPrefab;
 
     [Header("Referencias")]
+    [SerializeField] private ParticleSystem perfectParticles;
     [SerializeField] private Transform      barBackground;
     [SerializeField] private SpriteRenderer hitZone;
     [SerializeField] private SpriteRenderer perfectZone;
@@ -39,17 +40,28 @@ public class BeatIndicator : MonoBehaviour
 
     void SetupVisuals()
     {
+        float beatInterval = BeatManager.Instance.BeatInterval;
+        float unitsPerSec  = (_barWidth * 0.8f) / beatInterval;
+
+        float goodWidth    = BeatManager.Instance.GoodWindow * 2f * unitsPerSec;
+        float perfectWidth = BeatManager.Instance.PerfectWindow * 2f * unitsPerSec;
+
         if (hitZone != null)
         {
             hitZone.color = goodZoneColor;
             hitZone.transform.localPosition = new Vector3(_hitLineOffset, 0f, 0f);
+            hitZone.transform.localScale    = new Vector3(goodWidth, hitZone.transform.localScale.y, 1f);
         }
 
         if (perfectZone != null)
         {
             perfectZone.color = perfectZoneColor;
             perfectZone.transform.localPosition = new Vector3(_hitLineOffset, 0f, 0f);
+            perfectZone.transform.localScale    = new Vector3(perfectWidth, perfectZone.transform.localScale.y, 1f);
         }
+
+        if (perfectParticles != null)
+            perfectParticles.transform.localPosition = new Vector3(_hitLineOffset, 0f, 0f);
     }
 
     void OnBeat()
@@ -66,7 +78,7 @@ public class BeatIndicator : MonoBehaviour
 
             GameObject obj             = Instantiate(fragmentPrefab);
             BeatIndicatorFragment frag = obj.GetComponent<BeatIndicatorFragment>();
-            frag.Init(beatTime, _hitLineOffset, fragmentColor, calculatedSpeed, barBackground, _barWidth);
+            frag.Init(beatTime, _hitLineOffset, fragmentColor, calculatedSpeed, barBackground);
             _fragments.Add(frag);
         }
     }
@@ -83,7 +95,6 @@ public class BeatIndicator : MonoBehaviour
         {
             double timeUntilBeat = f.BeatTime - currentTime;
 
-            // so considera fragmentos que ja estao proximos ou passando da hit zone
             if (timeUntilBeat > 0.3f) continue;
 
             double diff = System.Math.Abs(timeUntilBeat);
@@ -99,6 +110,7 @@ public class BeatIndicator : MonoBehaviour
         switch (quality)
         {
             case HitQuality.Perfect:
+                if (perfectParticles != null) perfectParticles.Play();
                 closest.OnPerfect();
                 _fragments.Remove(closest);
                 break;
