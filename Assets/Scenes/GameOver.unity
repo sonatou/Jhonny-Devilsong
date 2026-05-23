@@ -430,8 +430,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 73}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -0.7897, y: 87.21503}
+  m_SizeDelta: {x: 169.5349, y: 128.4301}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &701348886
 MonoBehaviour:
@@ -446,6 +446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreDisplay
   scoreText: {fileID: 701348887}
+  comboText: {fileID: 0}
 --- !u!114 &701348887
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -493,10 +494,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 28
-  m_fontSizeBase: 28
+  m_fontSize: 18
+  m_fontSizeBase: 16
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -532,7 +533,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: -0.5918045, y: 0, z: -0.8876419, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -554,9 +555,41 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1016639530774898331, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016639530774898331, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016639530774898331, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016639530774898331, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1951991063971949989, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
       propertyPath: m_Name
       value: Managers
+      objectReference: {fileID: 0}
+    - target: {fileID: 3923383564552294647, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3923383564552294647, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3923383564552294647, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3923383564552294647, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4339433497688544499, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
       propertyPath: m_LocalPosition.x
@@ -596,6 +629,54 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4339433497688544499, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592200862349146899, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592200862349146899, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592200862349146899, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5592200862349146899, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541779529999919653, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541779529999919653, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541779529999919653, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6541779529999919653, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7270056714988355843, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7270056714988355843, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7270056714988355843, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7270056714988355843, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1019,6 +1100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreDisplay
   scoreText: {fileID: 1929464402}
+  comboText: {fileID: 0}
 --- !u!222 &1929464404
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1043,8 +1125,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -29.300003}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: -7.8972, y: -29.300003}
+  m_SizeDelta: {x: 166.4225, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

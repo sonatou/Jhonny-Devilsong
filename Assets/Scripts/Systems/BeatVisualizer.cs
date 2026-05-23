@@ -3,16 +3,17 @@ using UnityEngine.UI;
 
 public class BeatVisualizer : MonoBehaviour
 {
-    public Image indicator;
-    public Color onColor = Color.white;
-    public Color offColor = new Color(1f, 1f, 1f, 0.2f);
-    public float flashDuration = 0.1f;
+    [SerializeField] private Image indicator;
+    [SerializeField] private Color onColor      = Color.white;
+    [SerializeField] private Color offColor     = new Color(1f, 1f, 1f, 0.2f);
+    [SerializeField] private float flashDuration = 0.1f;
 
     private float _flashTimer = 0f;
 
-    void Start()
+    void OnEnable()
     {
-        BeatManager.Instance.OnBeat += OnBeat;
+        if (BeatManager.Instance != null)
+            BeatManager.Instance.OnBeat += OnBeat;
     }
 
     void OnDisable()
@@ -23,9 +24,11 @@ public class BeatVisualizer : MonoBehaviour
 
     void Update()
     {
+        if (indicator == null) return;
+
         if (_flashTimer > 0f)
         {
-            _flashTimer -= Time.deltaTime;
+            _flashTimer    -= Time.deltaTime;
             indicator.color = onColor;
         }
         else

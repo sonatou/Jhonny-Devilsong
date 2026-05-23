@@ -44,7 +44,7 @@ public class ScoreManager : MonoBehaviour
         if (quality == HitQuality.Perfect)
         {
             PerfectCount++;
-            CurrentCombo++;
+            CurrentCombo = Mathf.Clamp(CurrentCombo + 1, 1, 4);
         }
         else
         {
@@ -72,6 +72,12 @@ public class ScoreManager : MonoBehaviour
         PerfectCount = 0;
         CurrentCombo = 0;
         OnScoreChanged?.Invoke(CurrentScore);
+        OnComboChanged?.Invoke(CurrentCombo);
+    }
+
+    public void ResetCombo()
+    {
+        CurrentCombo = 0;
         OnComboChanged?.Invoke(CurrentCombo);
     }
 }

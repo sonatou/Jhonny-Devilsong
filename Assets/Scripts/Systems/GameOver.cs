@@ -18,6 +18,6 @@ public class GameOver : MonoBehaviour
     public void ReturnToHub()
     {
         ScoreManager.Instance.ResetRun();
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Hub");
     }
 }

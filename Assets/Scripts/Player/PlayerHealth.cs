@@ -5,18 +5,19 @@ using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
-    [SerializeField] private int   maxHealth            = 5;
+    [SerializeField] private int   maxHealth = 5;
     [SerializeField] private float invincibilityDuration = 1f;
-    [SerializeField] private float flashInterval         = 0.1f;
-    [SerializeField] private string gameOverScene        = "GameOver";
+    [SerializeField] private float flashInterval = 0.1f;
+    [SerializeField] private string gameOverScene = "GameOver";
 
     public event Action<int> OnHealthChanged;
-    public event Action      OnDeath;
+    public event Action OnDeath;
 
     public int CurrentHealth => _currentHealth;
+    public int MaxHealth => maxHealth;
 
-    private int            _currentHealth;
-    private bool           _isInvincible = false;
+    private int _currentHealth;
+    private bool _isInvincible = false;
     private SpriteRenderer _sr;
 
     void Awake()

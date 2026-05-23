@@ -7,7 +7,7 @@ public class BulletSpawner : MonoBehaviour
     [Header("UI")]
     [SerializeField] private BeatIndicator beatIndicator;
 
-    [Header("Proj�til")]
+    [Header("Projétil")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
 
@@ -64,6 +64,9 @@ void Shoot()
         if (bulletPrefab == null || firePoint == null) return;
 
         HitQuality quality = BeatManager.Instance.GetHitQuality();
+
+        if (quality == HitQuality.Miss)
+            ScoreManager.Instance?.ResetCombo();
 
         GameObject obj    = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet     = obj.GetComponent<Bullet>();
