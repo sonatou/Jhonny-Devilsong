@@ -269,7 +269,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5503322246702980661, guid: 7573bb0ba55b856409d83be8a2f159e7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1090663868}
   m_SourcePrefab: {fileID: 100100000, guid: 7573bb0ba55b856409d83be8a2f159e7, type: 3}
 --- !u!1 &302468101
 GameObject:
@@ -444,6 +447,23 @@ Transform:
   - {fileID: 302468102}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1090663865 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5503322246702980661, guid: 7573bb0ba55b856409d83be8a2f159e7, type: 3}
+  m_PrefabInstance: {fileID: 184196676}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1090663868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1090663865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a53900363c5e89b44a267f9332d87c76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DontDestroy
 --- !u!1001 &1168043350
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -888,6 +908,7 @@ GameObject:
   - component: {fileID: 2012419536}
   - component: {fileID: 2012419535}
   - component: {fileID: 2012419534}
+  - component: {fileID: 2012419538}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1013,6 +1034,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2012419538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012419533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a53900363c5e89b44a267f9332d87c76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DontDestroy
 --- !u!1 &2047080845
 GameObject:
   m_ObjectHideFlags: 0

@@ -83,7 +83,7 @@ public class BeatIndicator : MonoBehaviour
         }
     }
 
-    public void NotifyShot(HitQuality quality)
+public void NotifyShot(HitQuality quality)
     {
         _fragments.RemoveAll(f => f == null);
 
@@ -94,7 +94,6 @@ public class BeatIndicator : MonoBehaviour
         foreach (var f in _fragments)
         {
             double timeUntilBeat = f.BeatTime - currentTime;
-
             if (timeUntilBeat > 0.3f) continue;
 
             double diff = System.Math.Abs(timeUntilBeat);
@@ -110,6 +109,7 @@ public class BeatIndicator : MonoBehaviour
         switch (quality)
         {
             case HitQuality.Perfect:
+                Debug.Log($"[BeatIndicator] Perfect - particles: {perfectParticles}, fragments: {_fragments.Count}");
                 if (perfectParticles != null) perfectParticles.Play();
                 closest.OnPerfect();
                 _fragments.Remove(closest);

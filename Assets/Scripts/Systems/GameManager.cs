@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     public GameState CurrentState { get; private set; }
     public event Action<GameState> OnStateChanged;
 
-    void Awake()
+void Awake()
     {
         if (Instance != null && Instance != this)
         {
@@ -20,8 +20,6 @@ public class GameManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
-
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 

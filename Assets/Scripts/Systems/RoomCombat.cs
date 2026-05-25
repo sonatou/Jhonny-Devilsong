@@ -7,31 +7,32 @@ public class RoomCombat : MonoBehaviour
 
     private List<GameObject> _enemies = new List<GameObject>();
     private RoomTransition[] _doors;
-    private bool _triggered = false;
     private bool _cleared = false;
 
-void Start()
+    void Start()
     {
-        _doors = FindObjectsByType<RoomTransition>(FindObjectsSortMode.None);
+        var allDoors    = FindObjectsByType<RoomTransition>(FindObjectsSortMode.None);
+        var sceneDoors  = new List<RoomTransition>();
+
+        foreach (var door in allDoors)
+        {
+            if (door.gameObject.scene == gameObject.scene)
+                sceneDoors.Add(door);
+        }
+
+        _doors = sceneDoors.ToArray();
+
+        StartCombat();
     }
 
     void Update()
     {
-        if (!_triggered || _cleared) return;
+        if (_cleared) return;
 
         _enemies.RemoveAll(e => e == null);
 
         if (_enemies.Count == 0)
             ClearRoom();
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (_triggered || _cleared) return;
-        if (!other.CompareTag("Player")) return;
-
-        _triggered = true;
-        StartCombat();
     }
 
     void StartCombat()

@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _rb.gravityScale = 0f;
         _rb.freezeRotation = true;
-
+        DontDestroyOnLoad(gameObject);
         _actions = new InputSystem_Actions();
         _cam = Camera.main;
     }

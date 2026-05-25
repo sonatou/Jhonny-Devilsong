@@ -97,6 +97,9 @@ void Shoot()
         }
 
         bullet.Init(firePoint.up, quality);
+
+        if (beatIndicator == null)
+            beatIndicator = GetComponentInChildren<BeatIndicator>();
         beatIndicator?.NotifyShot(quality);
     }
 }
