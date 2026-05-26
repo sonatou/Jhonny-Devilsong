@@ -57,7 +57,7 @@ public class BeatManager : MonoBehaviour
 
     void HandleAudioForScene(string sceneName)
     {
-        bool isRun = sceneName != "Hub" && sceneName != "GameOver";
+        bool isRun = sceneName != "Hub" && sceneName != "GameOver" && sceneName != "Win";
 
         if (isRun)
         {

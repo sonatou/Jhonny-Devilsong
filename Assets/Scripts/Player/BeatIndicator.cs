@@ -109,7 +109,6 @@ public void NotifyShot(HitQuality quality)
         switch (quality)
         {
             case HitQuality.Perfect:
-                Debug.Log($"[BeatIndicator] Perfect - particles: {perfectParticles}, fragments: {_fragments.Count}");
                 if (perfectParticles != null) perfectParticles.Play();
                 closest.OnPerfect();
                 _fragments.Remove(closest);

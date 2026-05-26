@@ -11,8 +11,8 @@ public class RoomCombat : MonoBehaviour
 
     void Start()
     {
-        var allDoors    = FindObjectsByType<RoomTransition>(FindObjectsSortMode.None);
-        var sceneDoors  = new List<RoomTransition>();
+        var allDoors = FindObjectsByType<RoomTransition>(FindObjectsSortMode.None);
+        var sceneDoors = new List<RoomTransition>();
 
         foreach (var door in allDoors)
         {
@@ -21,6 +21,14 @@ public class RoomCombat : MonoBehaviour
         }
 
         _doors = sceneDoors.ToArray();
+
+        string currentScene = gameObject.scene.name;
+
+        if (GameManager.Instance != null && GameManager.Instance.IsRoomCompleted(currentScene))
+        {
+            _cleared = true;
+            return;
+        }
 
         StartCombat();
     }
@@ -49,5 +57,7 @@ public class RoomCombat : MonoBehaviour
 
         foreach (var door in _doors)
             door.Unlock();
+
+        GameManager.Instance?.CompleteRoom(gameObject.scene.name);
     }
 }
