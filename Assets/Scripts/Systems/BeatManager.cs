@@ -36,7 +36,6 @@ public class BeatManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     void Start()

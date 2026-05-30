@@ -28,7 +28,6 @@ public class ScoreManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 
     public void RegisterHit(HitQuality quality)

@@ -34,7 +34,7 @@ void FindAndBindPlayer()
         if (_playerHealth == null) return;
 
         _playerHealth.OnHealthChanged += UpdateHearts;
-        UpdateHearts(_playerHealth.MaxHealth);
+        UpdateHearts(_playerHealth.CurrentHealth);
     }
 
     void UnbindPlayer()

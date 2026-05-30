@@ -13,6 +13,5 @@ public class HUDManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
     }
 }
