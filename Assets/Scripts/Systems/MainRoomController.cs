@@ -1,14 +1,23 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainRoomController : MonoBehaviour
 {
+    [SerializeField] private SpawnPortal[] portals;
+
     void Start()
     {
-        if (GameManager.Instance != null && GameManager.Instance.AllRoomsCompleted)
+        string lastRoom = GameManager.Instance?.LastRoom;
+        if (string.IsNullOrEmpty(lastRoom)) return;
+
+        foreach (var portal in portals)
         {
-            ScoreManager.Instance?.SaveRun();
-            SceneManager.LoadScene("Win");
+            if (portal.roomName == lastRoom)
+            {
+                GameObject player = GameObject.FindWithTag("Player");
+                if (player != null)
+                    player.transform.position = portal.transform.position;
+                return;
+            }
         }
     }
 }

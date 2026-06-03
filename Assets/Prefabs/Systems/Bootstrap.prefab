@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04a55d17c5b9c4e449788ec7bcf3d89b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bootstrap
-  managersPrefab: {fileID: 0}
+  managersPrefab: {fileID: 1951991063971949989, guid: 2a556543d2a6eb3448cfad2d57dace47, type: 3}

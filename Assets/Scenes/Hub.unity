@@ -1163,6 +1163,7 @@ GameObject:
   - component: {fileID: 2012419535}
   - component: {fileID: 2012419534}
   - component: {fileID: 2012419538}
+  - component: {fileID: 2012419539}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1300,6 +1301,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a53900363c5e89b44a267f9332d87c76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DontDestroy
+--- !u!114 &2012419539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012419533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccca3b9a3b844024484f0781ac9e5787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraScaler
+  targetAspect: 1.7777778
+  referenceOrthographicSize: 5
 --- !u!1 &2047080845
 GameObject:
   m_ObjectHideFlags: 0

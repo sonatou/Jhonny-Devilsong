@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 232226055}
   - component: {fileID: 232226054}
   - component: {fileID: 232226053}
+  - component: {fileID: 232226056}
   m_Layer: 0
   m_Name: Door_Pursuit
   m_TagString: Untagged
@@ -214,6 +215,19 @@ Transform:
   - {fileID: 501428262}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &232226056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232226052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f00989e96242d5340bf9f8f06a4002a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnPortal
+  roomName: Pursuit
 --- !u!1 &501428261
 GameObject:
   m_ObjectHideFlags: 0
@@ -629,6 +643,7 @@ GameObject:
   - component: {fileID: 701196988}
   - component: {fileID: 701196987}
   - component: {fileID: 701196986}
+  - component: {fileID: 701196989}
   m_Layer: 0
   m_Name: Door_Flee
   m_TagString: Untagged
@@ -713,6 +728,19 @@ Transform:
   - {fileID: 766313918}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &701196989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 701196985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f00989e96242d5340bf9f8f06a4002a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnPortal
+  roomName: Flee
 --- !u!1 &766313917
 GameObject:
   m_ObjectHideFlags: 0
@@ -833,6 +861,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a10f971e8577b94aa92ac76db2ee91b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainRoomController
+  portals:
+  - {fileID: 1940254175}
+  - {fileID: 701196989}
+  - {fileID: 232226056}
+  - {fileID: 2145614717}
 --- !u!4 &1012341310
 Transform:
   m_ObjectHideFlags: 0
@@ -1292,6 +1325,7 @@ GameObject:
   - component: {fileID: 1940254173}
   - component: {fileID: 1940254172}
   - component: {fileID: 1940254174}
+  - component: {fileID: 1940254175}
   m_Layer: 0
   m_Name: Door_Seek
   m_TagString: Untagged
@@ -1376,6 +1410,19 @@ MonoBehaviour:
   targetScene: Seek
   roomLabel: Pressione E para ver Seek
   locked: 0
+--- !u!114 &1940254175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940254171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f00989e96242d5340bf9f8f06a4002a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnPortal
+  roomName: Seek
 --- !u!1 &2145614713
 GameObject:
   m_ObjectHideFlags: 0
@@ -1387,6 +1434,7 @@ GameObject:
   - component: {fileID: 2145614716}
   - component: {fileID: 2145614715}
   - component: {fileID: 2145614714}
+  - component: {fileID: 2145614717}
   m_Layer: 0
   m_Name: Door_Wander
   m_TagString: Untagged
@@ -1471,6 +1519,19 @@ Transform:
   - {fileID: 1835106124}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &2145614717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145614713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f00989e96242d5340bf9f8f06a4002a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpawnPortal
+  roomName: Wander
 --- !u!1 &2146673148
 GameObject:
   m_ObjectHideFlags: 0

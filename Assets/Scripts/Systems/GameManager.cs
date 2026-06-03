@@ -7,8 +7,16 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
+    public enum GameState { Hub, InRun, GameOver }
+
+    public GameState CurrentState { get; private set; }
+    public string LastRoom { get; private set; }
+    public string CurrentRoom { get; private set; }
+
+    public event Action<GameState> OnStateChanged;
+
     private HashSet<string> _completedRooms = new HashSet<string>();
-    private static readonly string[] _requiredRooms = { "Seek", "Flee", "Wander", "Pursuit", "Main" };
+    private static readonly string[] _requiredRooms = { "Seek", "Flee", "Wander", "Pursuit" };
 
     public bool AllRoomsCompleted
     {
@@ -19,11 +27,6 @@ public class GameManager : MonoBehaviour
             return true;
         }
     }
-
-    public enum GameState { Hub, InRun, GameOver }
-
-    public GameState CurrentState { get; private set; }
-    public event Action<GameState> OnStateChanged;
 
     void Awake()
     {
@@ -40,37 +43,49 @@ public class GameManager : MonoBehaviour
     void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        if (Instance == this) Instance = null;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        LastRoom = CurrentRoom;
+        CurrentRoom = scene.name;
+
         if (scene.name == "Hub")
             SetState(GameState.Hub);
         else if (scene.name == "GameOver")
             SetState(GameState.GameOver);
         else
             SetState(GameState.InRun);
+
+        if (scene.name == "Main" && AllRoomsCompleted)
+        {
+            ScoreManager.Instance?.SaveRun();
+            SceneManager.LoadScene("Win");
+        }
     }
 
     void SetState(GameState newState)
     {
         if (CurrentState == newState) return;
-
         CurrentState = newState;
         OnStateChanged?.Invoke(CurrentState);
     }
+
     public void CompleteRoom(string sceneName)
     {
         _completedRooms.Add(sceneName);
     }
 
-    public void ResetRooms()
-    {
-        _completedRooms.Clear();
-    }
-
     public bool IsRoomCompleted(string sceneName)
     {
         return _completedRooms.Contains(sceneName);
+    }
+
+    public void ResetRooms()
+    {
+        _completedRooms.Clear();
+        LastRoom = null;
+        CurrentRoom = null;
     }
 }

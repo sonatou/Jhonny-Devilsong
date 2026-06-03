@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Flee.unity
     guid: 8e5d513bb13d82044862054dec661f3c
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/extras/Arrival.unity
     guid: 5c0273e647f0397438a96a8afa3c57ee
   - enabled: 1
