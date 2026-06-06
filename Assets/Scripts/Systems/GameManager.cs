@@ -57,12 +57,6 @@ public class GameManager : MonoBehaviour
             SetState(GameState.GameOver);
         else
             SetState(GameState.InRun);
-
-        if (scene.name == "Main" && AllRoomsCompleted)
-        {
-            ScoreManager.Instance?.SaveRun();
-            SceneManager.LoadScene("Win");
-        }
     }
 
     void SetState(GameState newState)

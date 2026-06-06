@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2050000}
   - component: {fileID: 2050001}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Square
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -447,6 +447,37 @@ Transform:
   - {fileID: 302468102}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &856861269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 856861270}
+  m_Layer: 0
+  m_Name: CameraAnchor
+  m_TagString: CameraAnchor
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &856861270
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 856861269}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1090663865 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5503322246702980661, guid: 7573bb0ba55b856409d83be8a2f159e7, type: 3}
@@ -528,6 +559,14 @@ PrefabInstance:
       propertyPath: beatIndicator
       value: 
       objectReference: {fileID: 1862638830}
+    - target: {fileID: 8975574280366674452, guid: e69d9314d9d1a8f47a9bb3f02acf2993, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.234
+      objectReference: {fileID: 0}
+    - target: {fileID: 8975574280366674452, guid: e69d9314d9d1a8f47a9bb3f02acf2993, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.099
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -820,7 +859,8 @@ GameObject:
   - component: {fileID: 1697973624}
   - component: {fileID: 1697973623}
   - component: {fileID: 1697973622}
-  m_Layer: 0
+  - component: {fileID: 1697973625}
+  m_Layer: 10
   m_Name: Door_Wander
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -904,6 +944,19 @@ Transform:
   - {fileID: 2050000}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!114 &1697973625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697973621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de5ca01b03060d549a062fc46791f327, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainDoor
+  roomName: Wander
 --- !u!1 &1813488635
 GameObject:
   m_ObjectHideFlags: 0
@@ -1258,7 +1311,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 8.84
+  orthographic size: 9.1
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1310,11 +1363,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2012419533}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccca3b9a3b844024484f0781ac9e5787, type: 3}
+  m_Script: {fileID: 11500000, guid: cd697e82164a5994aa4be62e5f1ce042, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CameraScaler
-  targetAspect: 1.7777778
-  referenceOrthographicSize: 5
+  m_EditorClassIdentifier: Assembly-CSharp::CameraRoomAnchor
+  anchorPosition: {x: 0, y: 0, z: -10}
 --- !u!1 &2047080845
 GameObject:
   m_ObjectHideFlags: 0
@@ -1463,3 +1515,4 @@ SceneRoots:
   - {fileID: 1697973624}
   - {fileID: 546562065}
   - {fileID: 1813488638}
+  - {fileID: 856861270}

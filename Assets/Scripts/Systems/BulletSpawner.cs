@@ -10,6 +10,7 @@ public class BulletSpawner : MonoBehaviour
     [Header("Projétil")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
+    [SerializeField] private WeaponOrbit _weaponOrbit;
 
     [Header("Cooldown")]
     [SerializeField] private float fireCooldown = 0.3f;
@@ -96,7 +97,8 @@ void Shoot()
                 break;
         }
 
-        bullet.Init(firePoint.up, quality);
+        Vector2 fireDir = _weaponOrbit != null ? _weaponOrbit.GetFireDirection() : firePoint.up;
+        bullet.Init(fireDir, quality);
 
         if (beatIndicator == null)
             beatIndicator = GetComponentInChildren<BeatIndicator>();

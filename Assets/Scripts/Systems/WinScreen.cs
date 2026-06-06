@@ -5,11 +5,14 @@ using TMPro;
 public class WinScreen : MonoBehaviour
 {
     [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text perfectText;
 
     void Start()
     {
-        if (ScoreManager.Instance != null)
-            scoreText.text = $"Score: {ScoreManager.Instance.LastRunScore:N0}";
+        if (ScoreManager.Instance == null) return;
+
+        scoreText.text = $"Score: {ScoreManager.Instance.LastRunScore:N0}";
+        perfectText.text = $"Perfects: {ScoreManager.Instance.LastRunPerfects}";
     }
 
     public void ReturnToHub()
@@ -19,10 +22,8 @@ public class WinScreen : MonoBehaviour
         SceneManager.LoadScene("Hub");
     }
 
-    public void NewRun()
+    public void QuitGame()
     {
-        ScoreManager.Instance?.ResetRun();
-        GameManager.Instance?.ResetRooms();
-        SceneManager.LoadScene("Main");
+        Application.Quit();
     }
 }
