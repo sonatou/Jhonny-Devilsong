@@ -358,15 +358,15 @@ MonoBehaviour:
   perfectSpeed: 14
   perfectDamage: 3
   perfectScale: 1.5
-  perfectColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  perfectSprite: {fileID: -5747652422538041451, guid: 209f6a1343276e44091a6753ec775cdf, type: 3}
   goodSpeed: 10
   goodDamage: 2
   goodScale: 1
-  goodColor: {r: 1, g: 1, b: 1, a: 1}
+  goodSprite: {fileID: 2036586572859425, guid: e3329eeb8ef1f3f439f227ffd19e2ddf, type: 3}
   missSpeed: 7
   missDamage: 1
   missScale: 0.6
-  missColor: {r: 1, g: 0, b: 0, a: 0.4}
+  missSprite: {fileID: 9085206057725287499, guid: 43f9a2d8b45279649a865937e96bdd35, type: 3}
 --- !u!114 &8737473929150254935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -522,6 +522,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponOrbit
   orbitRadius: 0.6
   firePoint: {fileID: 8975574280366674452}
+  orbitOffset: {x: 0, y: -0.2}
 --- !u!1 &6373937922481271815
 GameObject:
   m_ObjectHideFlags: 0

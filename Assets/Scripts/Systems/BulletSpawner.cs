@@ -19,19 +19,19 @@ public class BulletSpawner : MonoBehaviour
     [SerializeField] private float perfectSpeed = 14f;
     [SerializeField] private int perfectDamage = 3;
     [SerializeField] private float perfectScale = 1.5f;
-    [SerializeField] private Color perfectColor = Color.yellow;
+    [SerializeField] private Sprite perfectSprite = null;
 
     [Header("Good")]
     [SerializeField] private float goodSpeed = 10f;
     [SerializeField] private int goodDamage = 2;
     [SerializeField] private float goodScale = 1f;
-    [SerializeField] private Color goodColor = Color.white;
+    [SerializeField] private Sprite goodSprite = null;
 
     [Header("Miss")]
     [SerializeField] private float missSpeed = 7f;
     [SerializeField] private int missDamage = 1;
     [SerializeField] private float missScale = 0.6f;
-    [SerializeField] private Color missColor = new Color(1f, 1f, 1f, 0.4f);
+    [SerializeField] private Sprite missSprite = null;
 
     private InputSystem_Actions _actions;
     private float _lastFireTime = -Mathf.Infinity;
@@ -60,7 +60,7 @@ public class BulletSpawner : MonoBehaviour
         Shoot();
     }
 
-void Shoot()
+    void Shoot()
     {
         if (bulletPrefab == null || firePoint == null) return;
 
@@ -69,31 +69,31 @@ void Shoot()
         if (quality == HitQuality.Miss)
             ScoreManager.Instance?.ResetCombo();
 
-        GameObject obj    = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Bullet bullet     = obj.GetComponent<Bullet>();
+        GameObject obj = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+        Bullet bullet = obj.GetComponent<Bullet>();
         SpriteRenderer sr = obj.GetComponent<SpriteRenderer>();
 
         switch (quality)
         {
             case HitQuality.Perfect:
-                bullet.speed  = perfectSpeed;
+                bullet.speed = perfectSpeed;
                 bullet.damage = perfectDamage;
                 obj.transform.localScale = Vector3.one * perfectScale;
-                if (sr != null) sr.color = perfectColor;
+                if (sr != null && perfectSprite != null) sr.sprite = perfectSprite;
                 break;
 
             case HitQuality.Good:
-                bullet.speed  = goodSpeed;
+                bullet.speed = goodSpeed;
                 bullet.damage = goodDamage;
                 obj.transform.localScale = Vector3.one * goodScale;
-                if (sr != null) sr.color = goodColor;
+                if (sr != null && goodSprite != null) sr.sprite = goodSprite;
                 break;
 
             case HitQuality.Miss:
-                bullet.speed  = missSpeed;
+                bullet.speed = missSpeed;
                 bullet.damage = missDamage;
                 obj.transform.localScale = Vector3.one * missScale;
-                if (sr != null) sr.color = missColor;
+                if (sr != null && missSprite != null) sr.sprite = missSprite;
                 break;
         }
 
