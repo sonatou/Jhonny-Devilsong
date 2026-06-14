@@ -2854,7 +2854,7 @@ Transform:
   m_GameObject: {fileID: 1449562396}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.58, y: -8.93, z: 0}
+  m_LocalPosition: {x: 12.58, y: -10.18, z: 0}
   m_LocalScale: {x: 30.618263, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3945,7 +3945,7 @@ Transform:
   m_GameObject: {fileID: 1929479393}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12.58, y: 2.1499999, z: 0}
+  m_LocalPosition: {x: 12.58, y: 3.19, z: 0}
   m_LocalScale: {x: 30.618263, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4332,7 +4332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomTransition
   targetScene: Main
-  roomLabel: Pressione E para voltar ao HUB
+  roomLabel: Pressione E para voltar
   locked: 0
 --- !u!1 &1970968045
 GameObject:

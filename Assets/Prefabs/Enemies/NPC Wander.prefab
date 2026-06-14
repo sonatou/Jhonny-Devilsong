@@ -31,8 +31,8 @@ Transform:
   m_GameObject: {fileID: 3870124946156120983}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.49235, y: -0.50477, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.49235, y: -0.49909, z: 0}
+  m_LocalScale: {x: 1.6962138, y: 1.6962138, z: 1.6962138}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -199,6 +199,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WanderBehavior
   maxSpeed: 3
-  circleDistance: 2
-  circleRadius: 1
+  circleDistance: 2.61
+  circleRadius: 3.22
   angleChange: 40

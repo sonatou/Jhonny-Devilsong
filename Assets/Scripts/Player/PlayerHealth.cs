@@ -25,9 +25,33 @@ public class PlayerHealth : MonoBehaviour
         _sr = GetComponent<SpriteRenderer>();
     }
 
+    void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "Hub" && !gameObject.activeSelf)
+            Destroy(gameObject);
+    }
+
     void Start()
     {
+        PlayerHealth[] all = FindObjectsByType<PlayerHealth>(FindObjectsSortMode.None);
+        if (all.Length > 1)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         _currentHealth = maxHealth;
+        OnHealthChanged?.Invoke(_currentHealth);
     }
 
     public void TakeDamage(int amount)
@@ -41,8 +65,8 @@ public class PlayerHealth : MonoBehaviour
         {
             OnDeath?.Invoke();
             ScoreManager.Instance?.SaveRun();
-            Destroy(gameObject);
             SceneManager.LoadScene(gameOverScene);
+            gameObject.SetActive(false);
             return;
         }
 

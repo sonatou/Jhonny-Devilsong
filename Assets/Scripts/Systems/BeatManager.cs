@@ -63,12 +63,14 @@ public class BeatManager : MonoBehaviour
             if (!audioSource.isPlaying)
             {
                 _nextBeatTime = AudioSettings.dspTime + 1f;
+                _lastBeatTime = AudioSettings.dspTime;
+                audioSource.Stop();
                 audioSource.Play();
             }
         }
         else
         {
-            audioSource.Pause();
+            audioSource.Stop();
         }
     }
 

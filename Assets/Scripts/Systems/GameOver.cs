@@ -14,10 +14,15 @@ public class GameOver : MonoBehaviour
         scoreText.text   = $"Score: {ScoreManager.Instance.LastRunScore:N0}";
         perfectText.text = $"Perfects: {ScoreManager.Instance.LastRunPerfects}";
     }
-
     public void ReturnToHub()
     {
-        ScoreManager.Instance.ResetRun();
+        ScoreManager.Instance?.ResetRun();
+        GameManager.Instance?.ResetRooms();
         SceneManager.LoadScene("Hub");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }

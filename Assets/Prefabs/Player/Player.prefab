@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1946631639797639068}
   - component: {fileID: 1709883333850148504}
-  - component: {fileID: 3774202328676264018}
+  - component: {fileID: 2200717845669379410}
   m_Layer: 0
   m_Name: BeatIndicatorRoot
   m_TagString: Untagged
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KeepRotation
   offset: {x: 0, y: 1.5, z: 0}
---- !u!114 &3774202328676264018
+--- !u!114 &2200717845669379410
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4651696360361399884}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e726288f06ebd6947918f8da408f8341, type: 3}
+  m_Script: {fileID: 11500000, guid: c69925db74b45bc479c74f9ebf71c211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BeatIndicator
   fragmentPrefab: {fileID: 118999752807380129, guid: b5d0ec224e70d124da6d61fb69db0e98, type: 3}
@@ -160,8 +160,8 @@ MonoBehaviour:
   perfectZone: {fileID: 6723894963861101527}
   fragmentsAhead: 1
   fragmentColor: {r: 1, g: 1, b: 1, a: 1}
-  goodZoneColor: {r: 0.29376745, g: 1, b: 0, a: 0.50980395}
-  perfectZoneColor: {r: 1, g: 0.9, b: 0, a: 0.8156863}
+  goodZoneColor: {r: 1, g: 1, b: 1, a: 0.3}
+  perfectZoneColor: {r: 1, g: 0.9, b: 0, a: 0.4}
 --- !u!1 &4705084448924775659
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,7 +350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f81764c13019134297cbd2dba9a13e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BulletSpawner
-  beatIndicator: {fileID: 3774202328676264018}
+  beatIndicator: {fileID: 0}
   bulletPrefab: {fileID: 154934146455235941, guid: 596cfb8e62dc0c144afdb31d227d7784, type: 3}
   firePoint: {fileID: 8975574280366674452}
   _weaponOrbit: {fileID: 962108940130619215}

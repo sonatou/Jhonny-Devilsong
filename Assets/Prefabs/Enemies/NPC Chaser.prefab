@@ -31,8 +31,8 @@ Transform:
   m_GameObject: {fileID: 7487244504336833502}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.025613, y: 0.018454, z: 0}
+  m_LocalScale: {x: 1.821694, y: 1.821694, z: 1.821694}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -171,9 +171,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 350ae00d1c34bd140b692f04b798f467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PursuitBehavior
-  maxSpeed: 4
+  maxSpeed: 5.26
   maxForce: 8
-  predictionFactor: 5
+  predictionFactor: 7.24
 --- !u!114 &9111783122970815578
 MonoBehaviour:
   m_ObjectHideFlags: 0
