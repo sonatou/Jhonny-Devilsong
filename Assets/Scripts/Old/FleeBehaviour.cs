@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class FleeBehavior : MonoBehaviour
+public class FleeBehavior : EnemyBase
 {
     [SerializeField] private float maxSpeed = 4f;
     [SerializeField] private float maxForce = 8f;
@@ -11,22 +11,26 @@ public class FleeBehavior : MonoBehaviour
     [SerializeField] private float idleMaxDuration = 3f;
     [SerializeField] private float roamDuration = 1.5f;
 
-    private Rigidbody2D _rb;
-    private Transform _target;
     private Vector2 _roamDirection;
     private bool _isRoaming = false;
 
-    void Start()
+    protected override void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
-        _rb.gravityScale = 0f;
-        _rb.freezeRotation = true;
-
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
-            _target = player.transform;
+        base.Start();
 
         StartCoroutine(RoamRoutine());
+    }
+
+    protected override void FlipToPlayerPostion()
+    {
+        if (_target.transform.position.x - transform.position.x < 0)
+        {
+            //spriteRenderer.flipY = true;
+        }
+        else
+        {
+            //spriteRenderer.flipY = false;
+        }
     }
 
     void FixedUpdate()
@@ -45,6 +49,8 @@ public class FleeBehavior : MonoBehaviour
             Roam();
         else
             _rb.linearVelocity = Vector2.zero;
+        if (_rb.linearVelocity.x != 0)
+            spriteRenderer.flipY = _rb.linearVelocity.x < 0;
     }
 
     void Flee(Vector2 toTarget)
@@ -53,6 +59,7 @@ public class FleeBehavior : MonoBehaviour
         Vector2 steering = desired - _rb.linearVelocity;
         steering = Vector2.ClampMagnitude(steering, maxForce);
         _rb.linearVelocity = Vector2.ClampMagnitude(_rb.linearVelocity + steering * Time.fixedDeltaTime, maxSpeed);
+
         UpdateRotation();
     }
 
@@ -67,7 +74,7 @@ public class FleeBehavior : MonoBehaviour
         if (_rb.linearVelocity.sqrMagnitude > 0.01f)
         {
             float angle = Mathf.Atan2(_rb.linearVelocity.y, _rb.linearVelocity.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
+            transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
     }
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class ShooterBehaviour : MonoBehaviour
+public class ShooterBehaviour : EnemyBase
 {
     [Header("Distâncias")]
     public float safeDistance = 6f;
@@ -14,23 +14,16 @@ public class ShooterBehaviour : MonoBehaviour
     public GameObject bulletPrefab;
     public Transform firePoint;
     public float fireCooldown = 2f;
+    [SerializeField] private GameObject sniper;
 
-    private Rigidbody2D _rb;
-    private Transform _target;
     private float _lastFireTime = -Mathf.Infinity;
 
     private enum State { Approach, Combat, Flee }
     private State _state;
 
-    void Start()
+    protected override void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
-        _rb.gravityScale = 0f;
-        _rb.freezeRotation = true;
-
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
-            _target = player.transform;
+        base.Start();
     }
 
     void FixedUpdate()
@@ -108,7 +101,21 @@ public class ShooterBehaviour : MonoBehaviour
         if (_target == null) return;
         Vector2 direction = ((Vector2)_target.position - _rb.position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
+        sniper.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+    }
+
+    protected override void FlipToPlayerPostion()
+    {
+        if (_target.transform.position.x - transform.position.x < 0)
+        {
+            spriteRenderer.flipX = true;
+            sniper.transform.localScale = new Vector3(1, -1, 1);
+        }
+        else
+        {
+            spriteRenderer.flipX = false;
+            sniper.transform.localScale = new Vector3(1, 1, 1);
+        }
     }
 
     void OnDrawGizmosSelected()

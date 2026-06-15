@@ -5,13 +5,16 @@ public class WeaponOrbit : MonoBehaviour
 {
     [SerializeField] private float orbitRadius = 0.6f;
     [SerializeField] private Transform firePoint;
-    [SerializeField] private Vector2 orbitOffset = new Vector2(0f, -0.2f);
+    //[SerializeField] private Vector2 orbitOffset = new Vector2(0f, -0.2f);
+
+    private Vector3 originalScale;
 
     private Transform _player;
 
     void Awake()
     {
         _player = transform.parent;
+        originalScale = transform.localScale;
     }
 
     void Update()
@@ -25,7 +28,7 @@ public class WeaponOrbit : MonoBehaviour
         if (cam == null) return;
 
         Vector3 mouseWorld = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        Vector2 center = (Vector2)_player.position + orbitOffset;
+        Vector2 center = (Vector2)_player.position;
         Vector2 direction = ((Vector2)mouseWorld - center).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
@@ -34,6 +37,11 @@ public class WeaponOrbit : MonoBehaviour
             Mathf.Sin(angle * Mathf.Deg2Rad) * orbitRadius);
 
         transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
+        // Flip do sprite
+        Vector3 scale = originalScale;
+        scale.y *= direction.x < 0 ? -1 : 1;
+        transform.localScale = scale;
     }
 
     public Vector2 GetFireDirection()

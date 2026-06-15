@@ -1,28 +1,16 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class PursuitBehavior : MonoBehaviour
+public class PursuitBehavior : EnemyBase
 {
     public float maxSpeed = 4f;
     public float maxForce = 8f;
     public float predictionFactor = 0.5f;
 
-    private Rigidbody2D _rb;
-    private Rigidbody2D _targetRb;
-    private Transform _target;
 
-    void Start()
+    protected override void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
-        _rb.gravityScale = 0f;
-        _rb.freezeRotation = true;
-
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
-        {
-            _target = player.transform;
-            _targetRb = player.GetComponent<Rigidbody2D>();
-        }
+        base.Start();
     }
 
     void FixedUpdate()
@@ -52,7 +40,7 @@ public class PursuitBehavior : MonoBehaviour
         if (_rb.linearVelocity.sqrMagnitude > 0.01f)
         {
             float angle = Mathf.Atan2(_rb.linearVelocity.y, _rb.linearVelocity.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
+            transform.rotation = Quaternion.Euler(0f, 0f, angle );
         }
     }
 

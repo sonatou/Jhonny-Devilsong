@@ -5246,7 +5246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1028948397334695451, guid: cb275335c2278684b913d02516ec6bb4, type: 3}
       propertyPath: enemyPrefabs.Array.size
-      value: 3
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1028948397334695451, guid: cb275335c2278684b913d02516ec6bb4, type: 3}
       propertyPath: 'spawnPoints.Array.data[1]'
@@ -5257,13 +5257,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8922537887843838993}
     - target: {fileID: 1028948397334695451, guid: cb275335c2278684b913d02516ec6bb4, type: 3}
+      propertyPath: 'enemyPrefabs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5151559465761969481, guid: ff2f9c25b358aca4d80622da608d6621, type: 3}
+    - target: {fileID: 1028948397334695451, guid: cb275335c2278684b913d02516ec6bb4, type: 3}
       propertyPath: 'enemyPrefabs.Array.data[1]'
       value: 
-      objectReference: {fileID: 9005234754807880145, guid: 8db0e7b5a761d3844b9d28ce26349bbd, type: 3}
+      objectReference: {fileID: 5151559465761969481, guid: 499d3bcb95c26624d815d957005e4884, type: 3}
     - target: {fileID: 1028948397334695451, guid: cb275335c2278684b913d02516ec6bb4, type: 3}
       propertyPath: 'enemyPrefabs.Array.data[2]'
       value: 
-      objectReference: {fileID: 7487244504336833502, guid: 9c48db4534bdb4943b79e22321abce6a, type: 3}
+      objectReference: {fileID: 5151559465761969481, guid: ff2f9c25b358aca4d80622da608d6621, type: 3}
+    - target: {fileID: 1028948397334695451, guid: cb275335c2278684b913d02516ec6bb4, type: 3}
+      propertyPath: 'enemyPrefabs.Array.data[3]'
+      value: 
+      objectReference: {fileID: 5151559465761969481, guid: ab0e244f860d6c846ba513cd8d7998b9, type: 3}
+    - target: {fileID: 1028948397334695451, guid: cb275335c2278684b913d02516ec6bb4, type: 3}
+      propertyPath: 'enemyPrefabs.Array.data[4]'
+      value: 
+      objectReference: {fileID: 5151559465761969481, guid: 85b3088b03d75f94cbac62b97098bd5f, type: 3}
+    - target: {fileID: 1028948397334695451, guid: cb275335c2278684b913d02516ec6bb4, type: 3}
+      propertyPath: 'enemyPrefabs.Array.data[5]'
+      value: 
+      objectReference: {fileID: 5151559465761969481, guid: ff2f9c25b358aca4d80622da608d6621, type: 3}
     - target: {fileID: 1871116284771297621, guid: cb275335c2278684b913d02516ec6bb4, type: 3}
       propertyPath: m_IsActive
       value: 1

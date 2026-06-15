@@ -1,25 +1,35 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class WanderBehavior : MonoBehaviour
+public class WanderBehavior : EnemyBase
 {
     public float maxSpeed = 3f;
     public float circleDistance = 2f;
     public float circleRadius = 1f;
     public float angleChange = 40f;
 
-    private Rigidbody2D _rb;
+    
     private float _wanderAngle = 0f;
     private Vector2 _lastDirection;
 
-    void Start()
+    protected override void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
-        _rb.gravityScale = 0f;
-        _rb.freezeRotation = true;
+        base.Start();
 
         _wanderAngle = Random.Range(0f, 360f);
         _lastDirection = Random.insideUnitCircle.normalized;
+    }
+
+    protected override void FlipToPlayerPostion()
+    {
+        if (_target.transform.position.x - transform.position.x < 0)
+        {
+            //spriteRenderer.flipY = true;
+        }
+        else
+        {
+            //spriteRenderer.flipY = false;
+        }
     }
 
     void FixedUpdate()
@@ -43,7 +53,8 @@ public class WanderBehavior : MonoBehaviour
         _rb.linearVelocity = desired;
 
         float angle = Mathf.Atan2(_rb.linearVelocity.y, _rb.linearVelocity.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, angle - 90f);
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        spriteRenderer.flipY = _rb.linearVelocity.x < 0;
     }
 
     void OnCollisionEnter2D(Collision2D col)

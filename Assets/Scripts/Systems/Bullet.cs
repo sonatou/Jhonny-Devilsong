@@ -12,7 +12,8 @@ public class Bullet : MonoBehaviour
     public void Init(Vector2 direction, HitQuality quality)
     {
         _direction = direction.normalized;
-        _quality   = quality;
+        _quality = quality;
+
         Destroy(gameObject, lifetime);
     }
 
@@ -25,7 +26,7 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Player")) return;
 
-        EnemyHealth health = other.GetComponent<EnemyHealth>();
+        EnemyBase health = other.GetComponent<EnemyBase>();
         if (health != null)
         {
             health.TakeDamage(damage);

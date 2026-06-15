@@ -13,6 +13,9 @@ public class EnemyBullet : MonoBehaviour
     {
         _direction = direction.normalized;
         Destroy(gameObject, lifetime);
+
+        float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 
     void FixedUpdate()

@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float moveSpeed = 5f;
 
     private Rigidbody2D _rb;
+    [SerializeField] private GameObject spriteObject;
     private Vector2 _input;
     private InputSystem_Actions _actions;
     private Camera _cam;
@@ -39,6 +40,17 @@ public class PlayerController : MonoBehaviour
     void OnMove(InputAction.CallbackContext ctx)
     {
         _input = ctx.ReadValue<Vector2>();
+
+        if (_input.x < 0)
+        {
+            spriteObject.gameObject.transform.localScale = new Vector3(-1,1,1);
+        }
+        else if (_input.x > 0)
+        {
+            spriteObject.gameObject.transform.localScale = new Vector3(1, 1, 1);
+        }
+
+
     }
 
     void FixedUpdate()
