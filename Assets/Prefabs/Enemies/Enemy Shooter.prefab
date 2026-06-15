@@ -132,8 +132,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3127066380102674106, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3276639
+      objectReference: {fileID: 0}
+    - target: {fileID: 3127066380102674106, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3276639
+      objectReference: {fileID: 0}
+    - target: {fileID: 3127066380102674106, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.3276639
+      objectReference: {fileID: 0}
+    - target: {fileID: 3127066380102674106, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.27187
       objectReference: {fileID: 0}
     - target: {fileID: 3127066380102674106, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
       propertyPath: m_LocalPosition.y
@@ -175,6 +187,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -1340070296733551782, guid: 4e30b4806f6401e4d90e58351a20694a, type: 3}
+    - target: {fileID: 7170224489547284485, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
+      propertyPath: m_Radius
+      value: 0.5292193
+      objectReference: {fileID: 0}
+    - target: {fileID: 7170224489547284485, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.04480542
+      objectReference: {fileID: 0}
+    - target: {fileID: 7170224489547284485, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.022459282
+      objectReference: {fileID: 0}
     - target: {fileID: 7487244504336833502, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
       propertyPath: m_Name
       value: Enemy Shooter
@@ -213,16 +237,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100eea5f8f695504aa575ac623cbb9cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShooterBehaviour
-  maxHealth: 1
+  maxHealth: 15
   damage: 1
   knockback: 3
   spriteRenderer: {fileID: 7645548317924995435}
-  safeDistance: 6
-  panicRadius: 3
+  safeDistance: 6.7
+  panicRadius: 3.46
   moveSpeed: 3
   bulletPrefab: {fileID: 5994180496400583014, guid: fc50994407a3a47448832056bb864580, type: 3}
   firePoint: {fileID: 3133616980768629646}
-  fireCooldown: 2
+  fireCooldown: 1.5
   sniper: {fileID: 2978874382406164512}
 --- !u!212 &7645548317924995435 stripped
 SpriteRenderer:

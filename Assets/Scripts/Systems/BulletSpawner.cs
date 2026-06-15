@@ -68,6 +68,8 @@ public class BulletSpawner : MonoBehaviour
 
         if (quality == HitQuality.Miss)
             ScoreManager.Instance?.ResetCombo();
+        if (quality == HitQuality.Miss)
+            BeatManager.Instance?.OnMiss();
 
         GameObject obj = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = obj.GetComponent<Bullet>();

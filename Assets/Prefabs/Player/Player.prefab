@@ -119,7 +119,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.926, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1.8375, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5250025748152337963}
@@ -325,6 +325,7 @@ MonoBehaviour:
   invincibilityDuration: 1
   flashInterval: 0.1
   gameOverScene: GameOver
+  _sr: {fileID: 5030641792699022072}
 --- !u!1 &5013975813095442920
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,7 +408,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.018231392, a: 0.6156863}
+  m_Color: {r: 0, g: 1, b: 0.019607723, a: 0.7882353}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5562,7 +5563,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 1, g: 0.9060749, b: 0, a: 0.9137255}
+  m_Color: {r: 1, g: 0.9060749, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -48,6 +48,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7170224489547284485, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
+      propertyPath: m_Radius
+      value: 0.4299757
+      objectReference: {fileID: 0}
+    - target: {fileID: 7170224489547284485, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.044980466
+      objectReference: {fileID: 0}
+    - target: {fileID: 7170224489547284485, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.0023954161
+      objectReference: {fileID: 0}
     - target: {fileID: 7487244504336833502, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
       propertyPath: m_Name
       value: Enemy Chaser
@@ -78,13 +90,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 350ae00d1c34bd140b692f04b798f467, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PursuitBehavior
-  maxHealth: 1
+  maxHealth: 20
   damage: 1
   knockback: 3
   spriteRenderer: {fileID: 7645548317924995435}
-  maxSpeed: 4
+  maxSpeed: 5
   maxForce: 8
-  predictionFactor: 0.5
+  predictionFactor: 2
 --- !u!212 &7645548317924995435 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 5371805417430335484, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}

@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float invincibilityDuration = 1f;
     [SerializeField] private float flashInterval = 0.1f;
     [SerializeField] private string gameOverScene = "GameOver";
+    [SerializeField] private SpriteRenderer _sr;
 
     public event Action<int> OnHealthChanged;
     public event Action OnDeath;
@@ -18,11 +19,9 @@ public class PlayerHealth : MonoBehaviour
 
     private int _currentHealth;
     private bool _isInvincible = false;
-    private SpriteRenderer _sr;
 
     void Awake()
     {
-        _sr = GetComponent<SpriteRenderer>();
     }
 
     void OnEnable()

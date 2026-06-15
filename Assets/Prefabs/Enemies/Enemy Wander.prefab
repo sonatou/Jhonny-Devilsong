@@ -64,6 +64,18 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7170224489547284485, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
+      propertyPath: m_Radius
+      value: 0.316749
+      objectReference: {fileID: 0}
+    - target: {fileID: 7170224489547284485, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.024268333
+      objectReference: {fileID: 0}
+    - target: {fileID: 7170224489547284485, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.010031916
+      objectReference: {fileID: 0}
     - target: {fileID: 7487244504336833502, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
       propertyPath: m_Name
       value: Enemy Wander
@@ -94,12 +106,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 902adc506dce806449fc433dcc5ab658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WanderBehavior
-  maxHealth: 1
+  maxHealth: 35
   damage: 1
   knockback: 3
   spriteRenderer: {fileID: 7645548317924995435}
-  maxSpeed: 3
-  circleDistance: 2
+  maxSpeed: 5.15
+  circleDistance: 1.56
   circleRadius: 1
   angleChange: 40
 --- !u!212 &7645548317924995435 stripped

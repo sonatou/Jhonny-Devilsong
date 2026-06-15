@@ -2307,11 +2307,15 @@ PrefabInstance:
     - target: {fileID: 8480393645672985079, guid: e3803dd4f205c8d4894516ae62d81c7c, type: 3}
       propertyPath: 'spawnPoints.Array.data[5]'
       value: 
-      objectReference: {fileID: 1120366699}
+      objectReference: {fileID: 1120366700}
     - target: {fileID: 8480393645672985079, guid: e3803dd4f205c8d4894516ae62d81c7c, type: 3}
       propertyPath: 'enemyPrefabs.Array.data[0]'
       value: 
       objectReference: {fileID: 5151559465761969481, guid: ab0e244f860d6c846ba513cd8d7998b9, type: 3}
+    - target: {fileID: 8480393645672985079, guid: e3803dd4f205c8d4894516ae62d81c7c, type: 3}
+      propertyPath: 'enemyPrefabs.Array.data[1]'
+      value: 
+      objectReference: {fileID: 5151559465761969481, guid: 499d3bcb95c26624d815d957005e4884, type: 3}
     - target: {fileID: 8480393645672985079, guid: e3803dd4f205c8d4894516ae62d81c7c, type: 3}
       propertyPath: 'enemyPrefabs.Array.data[2]'
       value: 
@@ -2319,9 +2323,13 @@ PrefabInstance:
     - target: {fileID: 8480393645672985079, guid: e3803dd4f205c8d4894516ae62d81c7c, type: 3}
       propertyPath: 'enemyPrefabs.Array.data[3]'
       value: 
-      objectReference: {fileID: 5151559465761969481, guid: ab0e244f860d6c846ba513cd8d7998b9, type: 3}
+      objectReference: {fileID: 5151559465761969481, guid: 85b3088b03d75f94cbac62b97098bd5f, type: 3}
     - target: {fileID: 8480393645672985079, guid: e3803dd4f205c8d4894516ae62d81c7c, type: 3}
       propertyPath: 'enemyPrefabs.Array.data[4]'
+      value: 
+      objectReference: {fileID: 5151559465761969481, guid: ab0e244f860d6c846ba513cd8d7998b9, type: 3}
+    - target: {fileID: 8480393645672985079, guid: e3803dd4f205c8d4894516ae62d81c7c, type: 3}
+      propertyPath: 'enemyPrefabs.Array.data[5]'
       value: 
       objectReference: {fileID: 5151559465761969481, guid: ab0e244f860d6c846ba513cd8d7998b9, type: 3}
     m_RemovedComponents: []
@@ -2340,11 +2348,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4356ee1df557d347abe656d7f822b37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
---- !u!4 &1120366699 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 874321067668320474, guid: e3803dd4f205c8d4894516ae62d81c7c, type: 3}
-  m_PrefabInstance: {fileID: 1120366697}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1120366700 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2437795101691416931, guid: e3803dd4f205c8d4894516ae62d81c7c, type: 3}

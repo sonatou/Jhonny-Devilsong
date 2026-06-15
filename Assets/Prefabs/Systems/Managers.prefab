@@ -575,8 +575,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BeatManager
   bpm: 130
   audioSource: {fileID: 2155822951661973703}
-  perfectWindow: 0.05
+  perfectWindow: 0.075
   goodWindow: 0.1
+  missVolumeMultiplier: 0.08
+  missVolumeDuration: 0.1
 --- !u!82 &2155822951661973703
 AudioSource:
   m_ObjectHideFlags: 0

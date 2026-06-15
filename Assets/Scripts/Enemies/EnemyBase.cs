@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Windows;
 
@@ -20,10 +21,13 @@ public class EnemyBase : MonoBehaviour
     protected Rigidbody2D _targetRb;
 
     [SerializeField] protected SpriteRenderer spriteRenderer;
+    [SerializeField] protected float flashDuration = 0.1f;
+    private Color _originalColor;
 
-    protected virtual void Start()
+protected virtual void Start()
     {
         _currentHealth = maxHealth;
+        _originalColor = spriteRenderer.color;
 
         _rb = GetComponent<Rigidbody2D>();
         _rb.gravityScale = 0f;
@@ -46,6 +50,7 @@ public class EnemyBase : MonoBehaviour
     {
         _currentHealth -= amount;
         OnHit?.Invoke();
+        StartCoroutine(FlashRoutine());
 
         if (_currentHealth <= 0)
         {
@@ -80,5 +85,12 @@ public class EnemyBase : MonoBehaviour
             Vector2 direction = (col.transform.position - transform.position).normalized;
             playerRb.linearVelocity = direction * knockback;
         }
+    }
+
+    private IEnumerator FlashRoutine()
+    {
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(flashDuration);
+        spriteRenderer.color = _originalColor;
     }
 }

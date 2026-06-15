@@ -16,6 +16,13 @@ public class BeatManager : MonoBehaviour
     [SerializeField, Range(0f, 0.3f)] private float perfectWindow = 0.05f;
     [SerializeField, Range(0f, 0.3f)] private float goodWindow    = 0.15f;
 
+    [Header("Feedback de Miss")]
+    [SerializeField] private float missVolumeMultiplier = 0.4f;
+    [SerializeField] private float missVolumeDuration = 0.3f;
+
+    private float _baseVolume;
+    private float _missTimer;
+
     public event Action OnBeat;
 
     public float BeatInterval  => 60f / bpm;
@@ -35,6 +42,7 @@ public class BeatManager : MonoBehaviour
             return;
         }
 
+        _baseVolume = audioSource.volume;
         Instance = this;
     }
 
@@ -52,6 +60,11 @@ public class BeatManager : MonoBehaviour
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         HandleAudioForScene(scene.name);
+    }
+
+    public void OnMiss()
+    {
+        _missTimer = missVolumeDuration;
     }
 
     void HandleAudioForScene(string sceneName)
@@ -77,6 +90,15 @@ public class BeatManager : MonoBehaviour
     void Update()
     {
         if (!audioSource.isPlaying) return;
+        if (_missTimer > 0f)
+        {
+            _missTimer -= Time.deltaTime;
+            audioSource.volume = _baseVolume * missVolumeMultiplier;
+        }
+        else
+        {
+            audioSource.volume = _baseVolume;
+        }
 
         double currentTime = AudioSettings.dspTime;
         BeatProgress = (float)((currentTime - _lastBeatTime) / BeatInterval);
