@@ -1,4 +1,7 @@
 using System;
+using System.Threading;
+using FMOD.Studio;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,12 +11,8 @@ public class BeatManager : MonoBehaviour
 {
     public static BeatManager Instance { get; private set; }
 
-    [Header("Configuracao")]
-    [SerializeField] private float bpm = 120f;
-
-    [Header("Audio")]
-    [SerializeField] private AudioSource soloAudioSource;
-    [SerializeField] private AudioSource baseAudioSource;
+    [Header("Evento FMOD")]
+    [SerializeField] private EventReference musicEvent;
 
     [Header("Janela de Acerto")]
     [SerializeField, Range(0f, 0.3f)] private float perfectWindow = 0.05f;
@@ -23,19 +22,27 @@ public class BeatManager : MonoBehaviour
     [SerializeField] private float missVolumeMultiplier = 0.4f;
     [SerializeField] private float missVolumeDuration = 0.3f;
 
-    private float _soloBaseVolume;
+    private static readonly System.Diagnostics.Stopwatch _stopwatch = System.Diagnostics.Stopwatch.StartNew();
+    private static int _pendingBeats;
+    private static long _lastBeatTicks;
+
+    private EventInstance _musicInstance;
+    private EVENT_CALLBACK _beatCallback;
     private float _missTimer;
+    private float _bpm = 130f;
+    private double _nextBeatTime;
+    private double _lastBeatTime;
+    private bool _isPlaying;
 
     public event Action OnBeat;
 
-    public float BeatInterval => 60f / bpm;
-    public float BeatProgress { get; private set; }
+    public static double Clock => _stopwatch.Elapsed.TotalSeconds;
+
+    public float BeatInterval => 60f / _bpm;
+    public double LastBeatTime => _lastBeatTime;
     public bool IsInWindow => GetAccuracy() <= goodWindow;
     public float GoodWindow => goodWindow;
     public float PerfectWindow => perfectWindow;
-
-    private double _nextBeatTime;
-    private double _lastBeatTime;
 
     void Awake()
     {
@@ -46,9 +53,7 @@ public class BeatManager : MonoBehaviour
         }
 
         Instance = this;
-
-        if (soloAudioSource != null)
-            _soloBaseVolume = soloAudioSource.volume;
+        _beatCallback = BeatEventCallback;
     }
 
     void Start()
@@ -60,6 +65,7 @@ public class BeatManager : MonoBehaviour
     void OnDestroy()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        StopMusic();
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -69,68 +75,97 @@ public class BeatManager : MonoBehaviour
 
     public void OnMiss()
     {
+        if (!_isPlaying) return;
+
         _missTimer = missVolumeDuration;
+        _musicInstance.setParameterByName("solo_volume", missVolumeMultiplier);
     }
 
     void HandleAudioForScene(string sceneName)
     {
-        bool isRun = sceneName != "Hub" &&
+        bool isRun = sceneName != "MainMenu" &&
+                     sceneName != "Hub" &&
                      sceneName != "GameOver" &&
                      sceneName != "Win";
 
         if (isRun)
         {
-            if (!soloAudioSource.isPlaying)
-            {
-                double startTime = AudioSettings.dspTime + 1.0;
-
-                _nextBeatTime = startTime;
-                _lastBeatTime = startTime - BeatInterval;
-
-                soloAudioSource.Stop();
-                baseAudioSource.Stop();
-
-                soloAudioSource.PlayScheduled(startTime);
-                baseAudioSource.PlayScheduled(startTime);
-            }
+            if (!_isPlaying)
+                PlayMusic();
         }
         else
         {
-            soloAudioSource.Stop();
-            baseAudioSource.Stop();
+            StopMusic();
         }
+    }
+
+    void PlayMusic()
+    {
+        _musicInstance = RuntimeManager.CreateInstance(musicEvent);
+        _musicInstance.setCallback(_beatCallback, EVENT_CALLBACK_TYPE.TIMELINE_BEAT);
+        _musicInstance.setParameterByName("solo_volume", 1f);
+        Interlocked.Exchange(ref _pendingBeats, 0);
+        _musicInstance.start();
+        _isPlaying = true;
+    }
+
+    void StopMusic()
+    {
+        if (!_isPlaying) return;
+
+        _musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        _musicInstance.release();
+        _isPlaying = false;
     }
 
     void Update()
     {
-        if (!soloAudioSource.isPlaying)
-            return;
+        if (!_isPlaying) return;
 
         if (_missTimer > 0f)
         {
             _missTimer -= Time.deltaTime;
-            soloAudioSource.volume = _soloBaseVolume * missVolumeMultiplier;
+            if (_missTimer <= 0f)
+                _musicInstance.setParameterByName("solo_volume", 1f);
         }
-        else
+    }
+
+    void LateUpdate()
+    {
+        if (!_isPlaying)
         {
-            soloAudioSource.volume = _soloBaseVolume;
+            Interlocked.Exchange(ref _pendingBeats, 0);
+            return;
         }
 
-        double currentTime = AudioSettings.dspTime;
+        if (Interlocked.Exchange(ref _pendingBeats, 0) == 0) return;
 
-        BeatProgress = (float)((currentTime - _lastBeatTime) / BeatInterval);
+        _lastBeatTime = Interlocked.Read(ref _lastBeatTicks) / (double)System.Diagnostics.Stopwatch.Frequency;
+        _nextBeatTime = _lastBeatTime + BeatInterval;
+        OnBeat?.Invoke();
+    }
 
-        if (currentTime >= _nextBeatTime)
+    [AOT.MonoPInvokeCallback(typeof(EVENT_CALLBACK))]
+    static FMOD.RESULT BeatEventCallback(EVENT_CALLBACK_TYPE type, IntPtr instancePtr, IntPtr parameterPtr)
+    {
+        if (type == EVENT_CALLBACK_TYPE.TIMELINE_BEAT)
         {
-            _lastBeatTime = _nextBeatTime;
-            _nextBeatTime += BeatInterval;
-            OnBeat?.Invoke();
+            var parameter = (TIMELINE_BEAT_PROPERTIES)System.Runtime.InteropServices.Marshal.PtrToStructure(parameterPtr, typeof(TIMELINE_BEAT_PROPERTIES));
+
+            if (Instance != null)
+            {
+                Instance._bpm = parameter.tempo;
+                Interlocked.Exchange(ref _lastBeatTicks, _stopwatch.ElapsedTicks);
+                Interlocked.Increment(ref _pendingBeats);
+            }
         }
+
+        return FMOD.RESULT.OK;
     }
 
     public float GetAccuracy()
     {
-        double currentTime = AudioSettings.dspTime;
+        double currentTime = Clock;
 
         double distToLast = Math.Abs(currentTime - _lastBeatTime);
         double distToNext = Math.Abs(currentTime - _nextBeatTime);

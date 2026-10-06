@@ -110,6 +110,8 @@ MonoBehaviour:
   damage: 1
   knockback: 3
   spriteRenderer: {fileID: 7645548317924995435}
+  flashDuration: 0.1
+  deathVFX: {fileID: 4874580558691158305, guid: 6d4648f2c355efc429a8092806d542de, type: 3}
   maxSpeed: 5.15
   circleDistance: 1.56
   circleRadius: 1

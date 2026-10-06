@@ -73,13 +73,13 @@ public class ShooterBehaviour : EnemyBase
     void MoveTowards(Vector2 target)
     {
         Vector2 direction = (target - _rb.position).normalized;
-        _rb.linearVelocity = direction * moveSpeed;
+        _rb.linearVelocity = direction * moveSpeed * MusicSpeedMultiplier;
     }
 
     void MoveAwayFrom(Vector2 target)
     {
         Vector2 direction = (_rb.position - target).normalized;
-        _rb.linearVelocity = direction * moveSpeed;
+        _rb.linearVelocity = direction * moveSpeed * MusicSpeedMultiplier;
     }
 
     void TryShoot()

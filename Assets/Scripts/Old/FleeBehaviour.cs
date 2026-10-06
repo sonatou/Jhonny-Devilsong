@@ -55,17 +55,17 @@ public class FleeBehavior : EnemyBase
 
     void Flee(Vector2 toTarget)
     {
-        Vector2 desired = -toTarget.normalized * maxSpeed;
+        Vector2 desired = -toTarget.normalized * maxSpeed * MusicSpeedMultiplier;
         Vector2 steering = desired - _rb.linearVelocity;
         steering = Vector2.ClampMagnitude(steering, maxForce);
-        _rb.linearVelocity = Vector2.ClampMagnitude(_rb.linearVelocity + steering * Time.fixedDeltaTime, maxSpeed);
+        _rb.linearVelocity = Vector2.ClampMagnitude(_rb.linearVelocity + steering * Time.fixedDeltaTime, maxSpeed * MusicSpeedMultiplier);
 
         UpdateRotation();
     }
 
     void Roam()
     {
-        _rb.linearVelocity = _roamDirection * (maxSpeed * 0.5f);
+        _rb.linearVelocity = _roamDirection * (maxSpeed * MusicSpeedMultiplier * 0.5f);
         UpdateRotation();
     }
 

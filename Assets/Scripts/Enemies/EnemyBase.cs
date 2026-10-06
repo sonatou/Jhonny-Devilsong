@@ -22,12 +22,26 @@ public class EnemyBase : MonoBehaviour
 
     [SerializeField] protected SpriteRenderer spriteRenderer;
     [SerializeField] protected float flashDuration = 0.1f;
+    [SerializeField] private ParticleSystem deathVFX;
     private Color _originalColor;
+
+    [Header("Musica")]
+    [SerializeField] private AnimationCurve beatStepCurve = AnimationCurve.EaseInOut(0f, 1f, 1f, 0f);
+    [SerializeField] private float minBeatSpeed = 0.3f;
+    [SerializeField] private float bassSpeedBoost = 0.5f;
+    [SerializeField] private float bassScalePulse = 0.25f;
+    [SerializeField] private Color midTint = new Color(1f, 0.6f, 0.6f);
+
+    protected float MusicSpeedMultiplier { get; private set; } = 1f;
+
+    private Vector3 _baseScale;
+    private bool _isFlashing;
 
 protected virtual void Start()
     {
         _currentHealth = maxHealth;
         _originalColor = spriteRenderer.color;
+        _baseScale = spriteRenderer.transform.localScale;
 
         _rb = GetComponent<Rigidbody2D>();
         _rb.gravityScale = 0f;
@@ -44,6 +58,26 @@ protected virtual void Start()
     protected virtual void Update()
     {
         FlipToPlayerPostion();
+        ApplyMusic();
+    }
+
+    void ApplyMusic()
+    {
+        float bass = AudioSpectrum.Instance != null ? AudioSpectrum.Instance.Bass : 0f;
+        float mid = AudioSpectrum.Instance != null ? AudioSpectrum.Instance.Mid : 0f;
+
+        float step = 1f;
+        if (BeatManager.Instance != null)
+        {
+            float phase = (float)((BeatManager.Clock - BeatManager.Instance.LastBeatTime) / BeatManager.Instance.BeatInterval);
+            step = beatStepCurve.Evaluate(Mathf.Clamp01(phase));
+        }
+
+        MusicSpeedMultiplier = Mathf.Lerp(minBeatSpeed, 1f + bass * bassSpeedBoost, step);
+        spriteRenderer.transform.localScale = _baseScale * (1f + bass * bassScalePulse);
+
+        if (!_isFlashing)
+            spriteRenderer.color = Color.Lerp(_originalColor, midTint, mid);
     }
 
     public virtual void TakeDamage(int amount)
@@ -54,6 +88,8 @@ protected virtual void Start()
 
         if (_currentHealth <= 0)
         {
+            if (deathVFX != null)
+                Instantiate(deathVFX, transform.position, Quaternion.identity);
             OnDeath?.Invoke();
             Destroy(gameObject);
         }
@@ -89,8 +125,10 @@ protected virtual void Start()
 
     private IEnumerator FlashRoutine()
     {
+        _isFlashing = true;
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(flashDuration);
         spriteRenderer.color = _originalColor;
+        _isFlashing = false;
     }
 }

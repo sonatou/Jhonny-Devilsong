@@ -49,7 +49,7 @@ public class WanderBehavior : EnemyBase
 
         Vector2 wanderTarget = circleCenter + displacement;
 
-        Vector2 desired = (wanderTarget - _rb.position).normalized * maxSpeed;
+        Vector2 desired = (wanderTarget - _rb.position).normalized * maxSpeed * MusicSpeedMultiplier;
         _rb.linearVelocity = desired;
 
         float angle = Mathf.Atan2(_rb.linearVelocity.y, _rb.linearVelocity.x) * Mathf.Rad2Deg;

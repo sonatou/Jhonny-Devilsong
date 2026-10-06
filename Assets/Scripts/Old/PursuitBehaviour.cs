@@ -31,11 +31,11 @@ public class PursuitBehavior : EnemyBase
         Vector2 predictedPos = (Vector2)_target.position + targetVelocity * predictionTime;
 
         // Seek para a posição prevista
-        Vector2 desired = (predictedPos - _rb.position).normalized * maxSpeed;
+        Vector2 desired = (predictedPos - _rb.position).normalized * maxSpeed * MusicSpeedMultiplier;
         Vector2 steering = desired - _rb.linearVelocity;
         steering = Vector2.ClampMagnitude(steering, maxForce);
 
-        _rb.linearVelocity = Vector2.ClampMagnitude(_rb.linearVelocity + steering * Time.fixedDeltaTime, maxSpeed);
+        _rb.linearVelocity = Vector2.ClampMagnitude(_rb.linearVelocity + steering * Time.fixedDeltaTime, maxSpeed * MusicSpeedMultiplier);
 
         if (_rb.linearVelocity.sqrMagnitude > 0.01f)
         {

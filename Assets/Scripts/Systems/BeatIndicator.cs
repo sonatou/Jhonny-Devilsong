@@ -84,7 +84,7 @@ public class BeatIndicator : MonoBehaviour
 
     void OnBeat()
     {
-        _lastBeatTime = AudioSettings.dspTime;
+        _lastBeatTime = BeatManager.Instance.LastBeatTime;
         float beatInterval = BeatManager.Instance.BeatInterval;
         float calculatedSpeed = (_barWidth * 0.8f) / beatInterval;
 
@@ -105,7 +105,7 @@ public class BeatIndicator : MonoBehaviour
     {
         _fragments.RemoveAll(f => f == null);
 
-        double currentTime = AudioSettings.dspTime;
+        double currentTime = BeatManager.Clock;
         BeatIndicatorFragment closest = null;
         double closestTimeDiff = double.MaxValue;
 

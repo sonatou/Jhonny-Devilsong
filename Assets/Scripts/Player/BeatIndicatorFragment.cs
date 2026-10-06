@@ -27,7 +27,7 @@ public class BeatIndicatorFragment : MonoBehaviour
     {
         UpdatePosition();
 
-        double timeUntilBeat = BeatTime - AudioSettings.dspTime;
+        double timeUntilBeat = BeatTime - BeatManager.Clock;
         if (timeUntilBeat < -0.08f)
             Destroy(gameObject);
     }
@@ -36,7 +36,7 @@ public class BeatIndicatorFragment : MonoBehaviour
     {
         if (_barCenter == null) return;
 
-        double timeUntilBeat = BeatTime - AudioSettings.dspTime;
+        double timeUntilBeat = BeatTime - BeatManager.Clock;
         float  xOffset       = _hitLineOffset + (float)(timeUntilBeat * _speed);
 
         transform.position = _barCenter.position + new Vector3(xOffset, 0f, 0f);

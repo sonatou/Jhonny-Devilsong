@@ -1,9 +1,14 @@
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class HubMusic : MonoBehaviour
 {
-    [SerializeField] private AudioSource audioSource;
+    [Header("Evento FMOD")]
+    [SerializeField] private EventReference hubMusicEvent;
+
+    private FMOD.Studio.EventInstance _instance;
+    private bool _isPlaying;
 
     void OnEnable()
     {
@@ -16,6 +21,11 @@ public class HubMusic : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    void OnDestroy()
+    {
+        StopMusic(FMOD.Studio.STOP_MODE.IMMEDIATE);
+    }
+
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         HandleScene(scene.name);
@@ -24,13 +34,32 @@ public class HubMusic : MonoBehaviour
     void HandleScene(string sceneName)
     {
         if (sceneName == "Hub")
-        {
-            if (!audioSource.isPlaying)
-                audioSource.Play();
-        }
+            PlayMusic();
         else
+            StopMusic(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
+
+    void PlayMusic()
+    {
+        if (_isPlaying) return;
+
+        if (hubMusicEvent.IsNull)
         {
-            audioSource.Pause();
+            Debug.LogWarning("[HubMusic] Evento FMOD nao atribuido.", this);
+            return;
         }
+
+        _instance = RuntimeManager.CreateInstance(hubMusicEvent);
+        _instance.start();
+        _isPlaying = true;
+    }
+
+    void StopMusic(FMOD.Studio.STOP_MODE mode)
+    {
+        if (!_isPlaying) return;
+
+        _instance.stop(mode);
+        _instance.release();
+        _isPlaying = false;
     }
 }

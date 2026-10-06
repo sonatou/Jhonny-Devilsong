@@ -109,6 +109,10 @@ MonoBehaviour:
   speed: 10
   damage: 1
   lifetime: 3
+  impactVFX: {fileID: 5423897939832855314, guid: 3785bca6e989a7d4095b7584ae5813eb, type: 3}
+  perfectColor: {r: 0.854902, g: 0.6470588, b: 0.1254902, a: 1}
+  goodColor: {r: 0.49056602, g: 0.49056602, b: 0.49056602, a: 0.9019608}
+  missColor: {r: 0.9811321, g: 0.9811321, b: 0.9811321, a: 0.84313726}
 --- !u!58 &5681545719756850354
 CircleCollider2D:
   m_ObjectHideFlags: 0
