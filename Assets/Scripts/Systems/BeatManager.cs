@@ -40,6 +40,8 @@ public class BeatManager : MonoBehaviour
 
     public float BeatInterval => 60f / _bpm;
     public double LastBeatTime => _lastBeatTime;
+    public EventInstance MusicInstance => _musicInstance;
+    public bool IsPlaying => _isPlaying;
     public bool IsInWindow => GetAccuracy() <= goodWindow;
     public float GoodWindow => goodWindow;
     public float PerfectWindow => perfectWindow;
