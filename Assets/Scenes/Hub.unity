@@ -6054,6 +6054,7 @@ GameObject:
   - component: {fileID: 2012419538}
   - component: {fileID: 2012419539}
   - component: {fileID: 2012419540}
+  - component: {fileID: 2012419541}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6210,6 +6211,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioListener
   nonRigidbodyVelocity: 0
   attenuationObject: {fileID: 0}
+--- !u!114 &2012419541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012419533}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c598758373043004ba9ebd9a80e71069, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraFeedback
+  maxOffset: 0.35
+  traumaDecay: 2.5
+  shakeFrequency: 25
+  beatZoom: 0.003
+  beatPulseDecay: 8
 --- !u!1 &2047080845
 GameObject:
   m_ObjectHideFlags: 0

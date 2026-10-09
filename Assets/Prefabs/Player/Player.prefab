@@ -58,7 +58,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -79,10 +79,10 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 100
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0.7735849, g: 0.025542913, b: 0.07451819, a: 0.62352943}
+  m_Color: {r: 0.35, g: 0.08, b: 0.1, a: 0.85}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -430,7 +430,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeY:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -483,7 +483,7 @@ ParticleSystem:
         m_RotationOrder: 4
     startSizeZ:
       serializedVersion: 2
-      minMaxState: 0
+      minMaxState: 3
       scalar: 1
       minScalar: 1
       maxCurve:
@@ -4936,8 +4936,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1946631639797639068}
-  - component: {fileID: 1709883333850148504}
   - component: {fileID: 2200717845669379410}
+  - component: {fileID: 376702249680252772}
   m_Layer: 0
   m_Name: BeatIndicatorRoot
   m_TagString: Untagged
@@ -4964,19 +4964,6 @@ Transform:
   - {fileID: 2503696577865312614}
   m_Father: {fileID: 4063664237642617394}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1709883333850148504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4651696360361399884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa7b14096a51c99449a7c084b9f32fba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::KeepRotation
-  offset: {x: 0, y: 1.5, z: 0}
 --- !u!114 &2200717845669379410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4996,8 +4983,23 @@ MonoBehaviour:
   perfectZone: {fileID: 6723894963861101527}
   fragmentsAhead: 1
   fragmentColor: {r: 1, g: 1, b: 1, a: 1}
-  goodZoneColor: {r: 1, g: 1, b: 1, a: 0.3}
-  perfectZoneColor: {r: 1, g: 0.9, b: 0, a: 0.4}
+  goodZoneColor: {r: 0.25, g: 0.8, b: 0.35, a: 0.9}
+  perfectZoneColor: {r: 1, g: 0.82, b: 0.1, a: 1}
+--- !u!114 &376702249680252772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4651696360361399884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced55e5d90479b84489df0ea6d44905a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BeatBarAnchor
+  playerOffset: {x: 0, y: 1.5, z: 0}
+  viewportPosition: {x: 0.5, y: 0.022}
+  screenScale: 3
 --- !u!1 &4705084448924775659
 GameObject:
   m_ObjectHideFlags: 0
@@ -5139,6 +5141,8 @@ MonoBehaviour:
   perfectDamage: 3
   perfectScale: 2
   perfectSprite: {fileID: -5747652422538041451, guid: 209f6a1343276e44091a6753ec775cdf, type: 3}
+  perfectShake: 0.2
+  perfectSparks: {fileID: 7424954302009322476, guid: 7b1b61684b7d68242887643489c4d13a, type: 3}
   goodSpeed: 10
   goodDamage: 2
   goodScale: 1.5
@@ -5164,6 +5168,8 @@ MonoBehaviour:
   flashInterval: 0.1
   gameOverScene: GameOver
   _sr: {fileID: 5030641792699022072}
+  damageShake: 0.5
+  hitVFX: {fileID: 6878559522809404459, guid: e668db7e705e8d34d902d3eaf336f0c9, type: 3}
 --- !u!114 &1135058614332870125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5238,7 +5244,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5259,10 +5265,10 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 101
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 0, g: 1, b: 0.019607723, a: 0.7882353}
+  m_Color: {r: 0.25, g: 0.8, b: 0.35, a: 0.9}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -5319,6 +5325,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponOrbit
   orbitRadius: 0.6
   firePoint: {fileID: 8975574280366674452}
+  weaponSprite: {fileID: 4349817755692652576}
+  punchScale: {x: 1.3, y: 0.8, z: 1}
+  recoilDistance: 0.15
+  punchDuration: 0.12
 --- !u!1 &6373937922481271815
 GameObject:
   m_ObjectHideFlags: 0
@@ -5344,7 +5354,7 @@ Transform:
   m_GameObject: {fileID: 6373937922481271815}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.234, y: 0.099, z: 0}
+  m_LocalPosition: {x: 0.364, y: 0.002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10302,7 +10312,7 @@ ParticleSystemRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 15
+  m_SortingOrder: 104
   m_MaskInteraction: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -10362,7 +10372,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.08, y: 0.16, z: 1}
+  m_LocalScale: {x: 0.08, y: 0.22399999, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1946631639797639068}
@@ -10393,7 +10403,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10414,10 +10424,10 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 102
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 1, g: 0.9060749, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.82, b: 0.1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

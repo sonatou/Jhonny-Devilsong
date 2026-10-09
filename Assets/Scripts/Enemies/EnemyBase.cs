@@ -31,9 +31,14 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] private float bassSpeedBoost = 0.5f;
     [SerializeField] private float bassScalePulse = 0.25f;
 
+    [Header("Squash no dano")]
+    [SerializeField] private Vector3 hitSquash = new Vector3(1.25f, 0.75f, 1f);
+    [SerializeField] private float squashDuration = 0.12f;
+
     protected float MusicSpeedMultiplier { get; private set; } = 1f;
 
     private Vector3 _baseScale;
+    private float _squashTimer;
 
 protected virtual void Start()
     {
@@ -71,13 +76,18 @@ protected virtual void Start()
         }
 
         MusicSpeedMultiplier = Mathf.Lerp(minBeatSpeed, 1f + bass * bassSpeedBoost, step);
-        spriteRenderer.transform.localScale = _baseScale * (1f + bass * bassScalePulse);
+
+        float squash = squashDuration > 0f ? _squashTimer / squashDuration : 0f;
+        _squashTimer = Mathf.Max(0f, _squashTimer - Time.deltaTime);
+        Vector3 squashScale = Vector3.Lerp(Vector3.one, hitSquash, squash);
+        spriteRenderer.transform.localScale = Vector3.Scale(_baseScale * (1f + bass * bassScalePulse), squashScale);
     }
 
     public virtual void TakeDamage(int amount)
     {
         _currentHealth -= amount;
         OnHit?.Invoke();
+        _squashTimer = squashDuration;
         StartCoroutine(FlashRoutine());
 
         if (_currentHealth <= 0)

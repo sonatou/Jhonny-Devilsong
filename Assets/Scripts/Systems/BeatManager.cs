@@ -142,7 +142,7 @@ public class BeatManager : MonoBehaviour
 
         if (Interlocked.Exchange(ref _pendingBeats, 0) == 0) return;
 
-        _lastBeatTime = Interlocked.Read(ref _lastBeatTicks) / (double)System.Diagnostics.Stopwatch.Frequency;
+        _lastBeatTime = Interlocked.Read(ref _lastBeatTicks) / (double)System.Diagnostics.Stopwatch.Frequency + GameSettings.AudioOffsetMs / 1000.0;
         _nextBeatTime = _lastBeatTime + BeatInterval;
         OnBeat?.Invoke();
     }

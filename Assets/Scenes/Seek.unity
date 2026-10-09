@@ -3309,6 +3309,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2437795101691416931, guid: e3803dd4f205c8d4894516ae62d81c7c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 2437795101691416931, guid: e3803dd4f205c8d4894516ae62d81c7c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.69
+      objectReference: {fileID: 0}
     - target: {fileID: 3448824689921423264, guid: e3803dd4f205c8d4894516ae62d81c7c, type: 3}
       propertyPath: m_Name
       value: EnemySpawner
@@ -3397,6 +3405,14 @@ PrefabInstance:
       propertyPath: 'enemyPrefabs.Array.data[4]'
       value: 
       objectReference: {fileID: 5151559465761969481, guid: 499d3bcb95c26624d815d957005e4884, type: 3}
+    - target: {fileID: 8613751460666098439, guid: e3803dd4f205c8d4894516ae62d81c7c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 13.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 8613751460666098439, guid: e3803dd4f205c8d4894516ae62d81c7c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

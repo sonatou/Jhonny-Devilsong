@@ -39,7 +39,7 @@ public class BeatIndicatorFragment : MonoBehaviour
         double timeUntilBeat = BeatTime - BeatManager.Clock;
         float  xOffset       = _hitLineOffset + (float)(timeUntilBeat * _speed);
 
-        transform.position = _barCenter.position + new Vector3(xOffset, 0f, 0f);
+        transform.position = _barCenter.parent.TransformPoint(new Vector3(xOffset, 0f, 0f));
     }
 
     public void OnPerfect() => Destroy(gameObject);

@@ -20,6 +20,8 @@ public class BulletSpawner : MonoBehaviour
     [SerializeField] private int perfectDamage = 3;
     [SerializeField] private float perfectScale = 1.5f;
     [SerializeField] private Sprite perfectSprite = null;
+    [SerializeField] private float perfectShake = 0.2f;
+    [SerializeField] private ParticleSystem perfectSparks;
 
     [Header("Good")]
     [SerializeField] private float goodSpeed = 10f;
@@ -55,6 +57,7 @@ public class BulletSpawner : MonoBehaviour
 
     void OnAttack(InputAction.CallbackContext ctx)
     {
+        if (PauseMenu.IsPaused) return;
         if (Time.time - _lastFireTime < fireCooldown) return;
         _lastFireTime = Time.time;
         Shoot();
@@ -105,5 +108,16 @@ public class BulletSpawner : MonoBehaviour
         if (beatIndicator == null)
             beatIndicator = GetComponentInChildren<BeatIndicator>();
         beatIndicator?.NotifyShot(quality);
+
+        if (quality == HitQuality.Perfect)
+            PlayPerfectFeedback();
+    }
+
+    void PlayPerfectFeedback()
+    {
+        CameraFeedback.Instance?.Shake(perfectShake);
+        _weaponOrbit?.Punch();
+        if (perfectSparks != null)
+            Instantiate(perfectSparks, firePoint.position, firePoint.rotation);
     }
 }

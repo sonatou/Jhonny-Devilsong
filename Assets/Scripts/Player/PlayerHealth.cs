@@ -10,6 +10,8 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float flashInterval = 0.1f;
     [SerializeField] private string gameOverScene = "GameOver";
     [SerializeField] private SpriteRenderer _sr;
+    [SerializeField] private float damageShake = 0.5f;
+    [SerializeField] private ParticleSystem hitVFX;
 
     public event Action<int> OnHealthChanged;
     public event Action OnDeath;
@@ -56,6 +58,10 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int amount)
     {
         if (_isInvincible) return;
+
+        CameraFeedback.Instance?.Shake(damageShake);
+        if (hitVFX != null)
+            Instantiate(hitVFX, transform.position, Quaternion.identity);
 
         _currentHealth = Mathf.Max(0, _currentHealth - amount);
         OnHealthChanged?.Invoke(_currentHealth);

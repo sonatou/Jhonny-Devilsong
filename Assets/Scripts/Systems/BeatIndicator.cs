@@ -95,6 +95,7 @@ public class BeatIndicator : MonoBehaviour
             double beatTime = _lastBeatTime + beatInterval * i;
 
             GameObject obj = Instantiate(fragmentPrefab);
+            obj.transform.localScale *= transform.lossyScale.x;
             BeatIndicatorFragment frag = obj.GetComponent<BeatIndicatorFragment>();
             frag.Init(beatTime, _hitLineOffset, fragmentColor, calculatedSpeed, barBackground);
             _fragments.Add(frag);
