@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 3127066380102674106}
   - component: {fileID: 8364136939615857141}
   - component: {fileID: 7170224489547284485}
+  - component: {fileID: 6339795111883735649}
   m_Layer: 8
   m_Name: Enemy Base
   m_TagString: Enemy
@@ -188,3 +189,29 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0.031172335, y: -0.022459269}
   m_Radius: 0.5155862
+--- !u!114 &6339795111883735649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7487244504336833502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48258b433c13a7544bfa669c0e8589c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySounds
+  hitSound:
+    Guid:
+      Data1: 599364149
+      Data2: 1247542219
+      Data3: 660563587
+      Data4: 1093428718
+    Path: event:/SFX/Hit
+  deathSound:
+    Guid:
+      Data1: 1508653455
+      Data2: 1179098164
+      Data3: -1873731664
+      Data4: -1667755726
+    Path: event:/SFX/EnemyDeath

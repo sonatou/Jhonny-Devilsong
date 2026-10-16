@@ -57,8 +57,9 @@ public class WanderBehavior : EnemyBase
         spriteRenderer.flipY = _rb.linearVelocity.x < 0;
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    protected override void OnCollisionEnter2D(Collision2D col)
     {
+        base.OnCollisionEnter2D(col);
         // Ao bater em qualquer coisa, inverte e gira a direção
         _lastDirection = -_lastDirection;
         _wanderAngle += 180f + Random.Range(-60f, 60f);

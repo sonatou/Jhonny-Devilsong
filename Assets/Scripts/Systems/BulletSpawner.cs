@@ -1,3 +1,4 @@
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -35,6 +36,9 @@ public class BulletSpawner : MonoBehaviour
     [SerializeField] private float missScale = 0.6f;
     [SerializeField] private Sprite missSprite = null;
 
+    [Header("Som")]
+    [SerializeField] private EventReference shotSound;
+
     private InputSystem_Actions _actions;
     private float _lastFireTime = -Mathf.Infinity;
 
@@ -57,7 +61,7 @@ public class BulletSpawner : MonoBehaviour
 
     void OnAttack(InputAction.CallbackContext ctx)
     {
-        if (PauseMenu.IsPaused) return;
+        if (PauseMenu.IsPaused || SkillTreeUI.IsOpen) return;
         if (Time.time - _lastFireTime < fireCooldown) return;
         _lastFireTime = Time.time;
         Shoot();
@@ -70,7 +74,7 @@ public class BulletSpawner : MonoBehaviour
         HitQuality quality = BeatManager.Instance.GetHitQuality();
 
         if (quality == HitQuality.Miss)
-            ScoreManager.Instance?.ResetCombo();
+            ComboManager.Instance?.ResetCombo();
         if (quality == HitQuality.Miss)
             BeatManager.Instance?.OnMiss();
 
@@ -82,21 +86,21 @@ public class BulletSpawner : MonoBehaviour
         {
             case HitQuality.Perfect:
                 bullet.speed = perfectSpeed;
-                bullet.damage = perfectDamage;
+                bullet.damage = PlayerStats.ApplyDamage(perfectDamage);
                 obj.transform.localScale = Vector3.one * perfectScale;
                 if (sr != null && perfectSprite != null) sr.sprite = perfectSprite;
                 break;
 
             case HitQuality.Good:
                 bullet.speed = goodSpeed;
-                bullet.damage = goodDamage;
+                bullet.damage = PlayerStats.ApplyDamage(goodDamage);
                 obj.transform.localScale = Vector3.one * goodScale;
                 if (sr != null && goodSprite != null) sr.sprite = goodSprite;
                 break;
 
             case HitQuality.Miss:
                 bullet.speed = missSpeed;
-                bullet.damage = missDamage;
+                bullet.damage = PlayerStats.ApplyDamage(missDamage);
                 obj.transform.localScale = Vector3.one * missScale;
                 if (sr != null && missSprite != null) sr.sprite = missSprite;
                 break;
@@ -104,6 +108,7 @@ public class BulletSpawner : MonoBehaviour
 
         Vector2 fireDir = _weaponOrbit != null ? _weaponOrbit.GetFireDirection() : firePoint.up;
         bullet.Init(fireDir, quality);
+        PlayShotSound(quality);
 
         if (beatIndicator == null)
             beatIndicator = GetComponentInChildren<BeatIndicator>();
@@ -111,6 +116,16 @@ public class BulletSpawner : MonoBehaviour
 
         if (quality == HitQuality.Perfect)
             PlayPerfectFeedback();
+    }
+
+    void PlayShotSound(HitQuality quality)
+    {
+        if (shotSound.IsNull) return;
+
+        FMOD.Studio.EventInstance instance = RuntimeManager.CreateInstance(shotSound);
+        instance.setParameterByNameWithLabel("Quality", quality.ToString());
+        instance.start();
+        instance.release();
     }
 
     void PlayPerfectFeedback()

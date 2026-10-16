@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{cd26e3d4-c198-47af-b7d1-b88773e1f8b6}">
+		<property name="assetPath">
+			<value>Temp/Buy_01.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>0.5</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c4e19c2e-011d-4cb1-aa5b-51aa99788287}</destination>
+		</relationship>
+	</object>
+</objects>

@@ -6,11 +6,8 @@ using UnityEngine.Windows;
 public class EnemyBase : MonoBehaviour
 {
 
-    [SerializeField] protected int maxHealth = 1;
+    [SerializeField] protected EnemyData data;
     protected int _currentHealth;
-
-    [SerializeField] protected int damage = 1;
-    [SerializeField] protected float knockback = 3f;
 
     public event Action OnDeath;
     public event Action OnHit;
@@ -23,6 +20,7 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] protected SpriteRenderer spriteRenderer;
     [SerializeField] protected float flashDuration = 0.1f;
     [SerializeField] private ParticleSystem deathVFX;
+    [SerializeField] private MoneyFragment fragmentPrefab;
     private Color _originalColor;
 
     [Header("Musica")]
@@ -35,14 +33,22 @@ public class EnemyBase : MonoBehaviour
     [SerializeField] private Vector3 hitSquash = new Vector3(1.25f, 0.75f, 1f);
     [SerializeField] private float squashDuration = 0.12f;
 
+    [Header("Spawn")]
+    [SerializeField] private float spawnDuration = 0.5f;
+
     protected float MusicSpeedMultiplier { get; private set; } = 1f;
+    public float HealthMultiplier { get; set; } = 1f;
+    public float SpeedMultiplier { get; set; } = 1f;
+    public int LootMultiplier { get; set; } = 1;
+    public SpriteRenderer Body => spriteRenderer;
 
     private Vector3 _baseScale;
     private float _squashTimer;
+    private bool _isDead;
 
 protected virtual void Start()
     {
-        _currentHealth = maxHealth;
+        _currentHealth = Mathf.RoundToInt(data.MaxHealth * HealthMultiplier);
         _originalColor = spriteRenderer.color;
         _baseScale = spriteRenderer.transform.localScale;
 
@@ -56,6 +62,8 @@ protected virtual void Start()
             _target = player.transform;
             _targetRb = player.GetComponent<Rigidbody2D>();
         }
+
+        StartCoroutine(SpawnRoutine());
     }
 
     protected virtual void Update()
@@ -75,7 +83,7 @@ protected virtual void Start()
             step = beatStepCurve.Evaluate(Mathf.Clamp01(phase));
         }
 
-        MusicSpeedMultiplier = Mathf.Lerp(minBeatSpeed, 1f + bass * bassSpeedBoost, step);
+        MusicSpeedMultiplier = Mathf.Lerp(minBeatSpeed, 1f + bass * bassSpeedBoost, step) * SpeedMultiplier;
 
         float squash = squashDuration > 0f ? _squashTimer / squashDuration : 0f;
         _squashTimer = Mathf.Max(0f, _squashTimer - Time.deltaTime);
@@ -85,15 +93,20 @@ protected virtual void Start()
 
     public virtual void TakeDamage(int amount)
     {
+        if (_isDead) return;
+
         _currentHealth -= amount;
         OnHit?.Invoke();
         _squashTimer = squashDuration;
         StartCoroutine(FlashRoutine());
+        PopupSpawner.Instance?.ShowDamage(amount, spriteRenderer.bounds.center);
 
         if (_currentHealth <= 0)
         {
+            _isDead = true;
             if (deathVFX != null)
                 Instantiate(deathVFX, transform.position, Quaternion.identity);
+            DropMoney();
             OnDeath?.Invoke();
             Destroy(gameObject);
         }
@@ -111,20 +124,51 @@ protected virtual void Start()
         }       
     }
 
-    void OnCollisionEnter2D(Collision2D col)
+    protected virtual void OnCollisionEnter2D(Collision2D col)
     {
         if (!col.gameObject.CompareTag("Player")) return;
 
         PlayerHealth health = col.gameObject.GetComponent<PlayerHealth>();
         if (health != null)
-            health.TakeDamage(damage);
+            health.TakeDamage(data.Damage);
 
         Rigidbody2D playerRb = col.gameObject.GetComponent<Rigidbody2D>();
         if (playerRb != null)
         {
             Vector2 direction = (col.transform.position - transform.position).normalized;
-            playerRb.linearVelocity = direction * knockback;
+            playerRb.linearVelocity = direction * data.Knockback;
         }
+    }
+
+    void OnCollisionStay2D(Collision2D col)
+    {
+        if (!col.gameObject.CompareTag("Player")) return;
+
+        PlayerHealth health = col.gameObject.GetComponent<PlayerHealth>();
+        if (health != null)
+            health.TakeDamage(data.Damage);
+    }
+
+    void DropMoney()
+    {
+        if (fragmentPrefab == null) return;
+
+        int multiplier = ComboManager.Instance != null ? ComboManager.Instance.Multiplier : 1;
+        int count = data.Fragments * multiplier * LootMultiplier;
+        for (int i = 0; i < count; i++)
+            Instantiate(fragmentPrefab, transform.position, Quaternion.identity);
+    }
+
+    private IEnumerator SpawnRoutine()
+    {
+        Vector3 rootScale = transform.localScale;
+        for (float elapsed = 0f; elapsed < spawnDuration; elapsed += Time.deltaTime)
+        {
+            transform.localScale = rootScale * Easing.OutElastic(elapsed / spawnDuration);
+            yield return null;
+        }
+
+        transform.localScale = rootScale;
     }
 
     private IEnumerator FlashRoutine()

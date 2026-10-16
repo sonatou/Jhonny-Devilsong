@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdd426d81d96e8a4796e1970d1c630f9, type: 3}
+  m_Name: Skill_Dash
+  m_EditorClassIdentifier: Assembly-CSharp::SkillData
+  displayName: Dash
+  description: "Libera o dash no Shift. No tempo da m\xFAsica ele vai mais longe."
+  cost: 800
+  type: 1
+  effect: 3
+  value: 0
+  requirements: []

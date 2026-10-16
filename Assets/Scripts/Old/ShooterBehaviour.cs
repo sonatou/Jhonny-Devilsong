@@ -13,10 +13,12 @@ public class ShooterBehaviour : EnemyBase
     [Header("Tiro")]
     public GameObject bulletPrefab;
     public Transform firePoint;
-    public float fireCooldown = 2f;
+    public int beatsBetweenShots = 2;
     [SerializeField] private GameObject sniper;
+    [SerializeField] private EnemyTelegraph telegraph;
 
-    private float _lastFireTime = -Mathf.Infinity;
+    private int _beatsSinceShot;
+    private bool _armed;
 
     private enum State { Approach, Combat, Flee }
     private State _state;
@@ -24,6 +26,32 @@ public class ShooterBehaviour : EnemyBase
     protected override void Start()
     {
         base.Start();
+
+        if (BeatManager.Instance != null)
+            BeatManager.Instance.OnBeat += OnBeat;
+    }
+
+    void OnDestroy()
+    {
+        if (BeatManager.Instance != null)
+            BeatManager.Instance.OnBeat -= OnBeat;
+    }
+
+    void OnBeat()
+    {
+        _beatsSinceShot++;
+
+        if (_armed)
+        {
+            _armed = false;
+            if (_state == State.Combat) Shoot();
+            return;
+        }
+
+        if (_state != State.Combat || _beatsSinceShot < beatsBetweenShots - 1) return;
+
+        _armed = true;
+        if (telegraph != null) telegraph.Flash(BeatManager.Instance.BeatInterval);
     }
 
     void FixedUpdate()
@@ -42,7 +70,6 @@ public class ShooterBehaviour : EnemyBase
 
             case State.Combat:
                 _rb.linearVelocity = Vector2.zero;
-                TryShoot();
                 break;
 
             case State.Flee:
@@ -82,12 +109,11 @@ public class ShooterBehaviour : EnemyBase
         _rb.linearVelocity = direction * moveSpeed * MusicSpeedMultiplier;
     }
 
-    void TryShoot()
+    void Shoot()
     {
-        if (Time.time - _lastFireTime < fireCooldown) return;
         if (bulletPrefab == null || firePoint == null) return;
 
-        _lastFireTime = Time.time;
+        _beatsSinceShot = 0;
 
         Vector2 direction = ((Vector2)_target.position - (Vector2)firePoint.position).normalized;
         GameObject obj = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);

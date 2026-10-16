@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] public int damage = 1;
     [SerializeField] private float lifetime = 3f;
     [SerializeField] private GameObject impactVFX;
+    [SerializeField] private ParticleSystem hitSlash;
 
     [Header("Cores do impacto")]
     [SerializeField] private Color perfectColor = Color.yellow;
@@ -35,8 +36,9 @@ public class Bullet : MonoBehaviour
         EnemyBase health = other.GetComponent<EnemyBase>();
         if (health != null)
         {
+            ComboManager.Instance?.RegisterHit(_quality);
             health.TakeDamage(damage);
-            ScoreManager.Instance?.RegisterHit(_quality);
+            SpawnHitSlash();
         }
 
         SpawnImpactVFX();
@@ -51,14 +53,30 @@ public class Bullet : MonoBehaviour
         ParticleSystem ps = vfx.GetComponent<ParticleSystem>();
         var main = ps.main;
 
-        main.startColor = _quality switch
+        main.startColor = QualityColor();
+
+        ps.Play();
+    }
+
+    void SpawnHitSlash()
+    {
+        if (hitSlash == null) return;
+
+        float angle = Mathf.Atan2(_direction.y, _direction.x) * Mathf.Rad2Deg;
+        ParticleSystem slash = Instantiate(hitSlash, transform.position, Quaternion.Euler(0f, 0f, angle));
+        var main = slash.main;
+        main.startColor = QualityColor();
+        slash.Play();
+    }
+
+    Color QualityColor()
+    {
+        return _quality switch
         {
             HitQuality.Perfect => perfectColor,
             HitQuality.Good => goodColor,
             HitQuality.Miss => missColor,
             _ => Color.white
         };
-
-        ps.Play();
     }
 }

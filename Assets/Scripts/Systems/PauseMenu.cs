@@ -29,7 +29,9 @@ public class PauseMenu : MonoBehaviour
         if (Keyboard.current == null || !Keyboard.current.escapeKey.wasPressedThisFrame) return;
         if (System.Array.IndexOf(blockedScenes, SceneManager.GetActiveScene().name) >= 0) return;
 
-        if (optionsMenu.gameObject.activeSelf)
+        if (SkillTreeUI.IsOpen && SkillTreeUI.Instance != null)
+            SkillTreeUI.Instance.Close();
+        else if (optionsMenu.gameObject.activeSelf)
             optionsMenu.Close();
         else if (IsPaused)
             Resume();
@@ -61,11 +63,16 @@ public class PauseMenu : MonoBehaviour
 
     public void GoToMainMenu()
     {
+        SceneTransition.Load(mainMenuScene, LeaveRun);
+    }
+
+    void LeaveRun()
+    {
         Resume();
-        ScoreManager.Instance?.ResetRun();
+        ComboManager.Instance?.ResetRun();
+        Wallet.ResetRun();
         GameManager.Instance?.ResetRooms();
         DestroyPersistentObjects();
-        SceneManager.LoadScene(mainMenuScene);
     }
 
     public void QuitGame()
@@ -77,7 +84,8 @@ public class PauseMenu : MonoBehaviour
     {
         try
         {
-            RuntimeManager.GetBus("bus:/").setPaused(paused);
+            RuntimeManager.GetBus("bus:/Music").setPaused(paused);
+            RuntimeManager.GetBus("bus:/SFX").setPaused(paused);
         }
         catch (BusNotFoundException)
         {

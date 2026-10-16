@@ -88,6 +88,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7487244504336833502, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
       insertIndex: -1
       addedObject: {fileID: -3807738969358527864}
+    - targetCorrespondingSourceObject: {fileID: 7487244504336833502, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8701741733907347597}
+    - targetCorrespondingSourceObject: {fileID: 7487244504336833502, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1721015098444109505}
   m_SourcePrefab: {fileID: 100100000, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}
 --- !u!1 &5151559465761969481 stripped
 GameObject:
@@ -106,16 +112,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 902adc506dce806449fc433dcc5ab658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WanderBehavior
-  maxHealth: 35
-  damage: 1
-  knockback: 3
+  data: {fileID: 11400000, guid: 0084b4c763da28a43abd1ffb874614fa, type: 2}
   spriteRenderer: {fileID: 7645548317924995435}
   flashDuration: 0.1
   deathVFX: {fileID: 4874580558691158305, guid: 6d4648f2c355efc429a8092806d542de, type: 3}
+  fragmentPrefab: {fileID: 6173303685709438576, guid: 7b1acd4fb03de19409ff86b375f9345e, type: 3}
+  beatStepCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  minBeatSpeed: 0.45
+  bassSpeedBoost: 0.5
+  bassScalePulse: 0.25
+  hitSquash: {x: 1.25, y: 0.75, z: 1}
+  squashDuration: 0.12
+  spawnDuration: 0.5
   maxSpeed: 5.15
   circleDistance: 1.56
   circleRadius: 1
   angleChange: 40
+--- !u!114 &8701741733907347597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5151559465761969481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fb1dfc096694394d9cdceae1aac1e71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySplit
+  childPrefab: {fileID: 1825634627305322164, guid: af85cdc714646b24e8ab9a8e58da9531, type: 3}
+  count: 2
+  expelDistance: 1.5
+  expelDuration: 0.25
+--- !u!114 &1721015098444109505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5151559465761969481}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8464b2dfdcde584b867e54fab923b6a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyChampion
+  chance: 0.15
+  healthMultiplier: 1.5
+  speedMultiplier: 1.2
+  lootMultiplier: 2
+  sizeMultiplier: 1.15
+  tint: {r: 1, g: 0.4, b: 0.4, a: 1}
 --- !u!212 &7645548317924995435 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 5371805417430335484, guid: edbc3f827372cce40b03966849c5e0b3, type: 3}

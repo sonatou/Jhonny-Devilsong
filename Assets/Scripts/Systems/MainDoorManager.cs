@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainDoorManager : MonoBehaviour
 {
@@ -26,8 +25,7 @@ public class MainDoorManager : MonoBehaviour
 
         if (_doorsRemaining <= 0)
         {
-            ScoreManager.Instance?.SaveRun();
-            SceneManager.LoadScene("Win");
+            SceneTransition.Load("Win");
         }
     }
 }

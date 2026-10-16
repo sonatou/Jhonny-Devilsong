@@ -21,4 +21,22 @@ public class EnemySpawner : MonoBehaviour
 
         return spawned;
     }
+
+    public List<GameObject> SpawnWave(int count)
+    {
+        List<GameObject> spawned = new List<GameObject>();
+        if (enemyPrefabs.Length == 0 || spawnPoints.Length == 0) return spawned;
+
+        int start = Random.Range(0, spawnPoints.Length);
+        for (int i = 0; i < count; i++)
+        {
+            Transform point = spawnPoints[(start + i) % spawnPoints.Length];
+            if (point == null) continue;
+
+            GameObject prefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+            spawned.Add(Instantiate(prefab, point.position, Quaternion.identity));
+        }
+
+        return spawned;
+    }
 }

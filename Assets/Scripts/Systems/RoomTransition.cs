@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class RoomTransition : MonoBehaviour
 {
@@ -18,7 +17,7 @@ public class RoomTransition : MonoBehaviour
     void Update()
     {
         if (_playerNearby && !locked && Input.GetKeyDown(KeyCode.E))
-            SceneManager.LoadScene(targetScene);
+            SceneTransition.Load(targetScene);
     }
 
     void OnTriggerEnter2D(Collider2D other)

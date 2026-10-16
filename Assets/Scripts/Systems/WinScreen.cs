@@ -1,25 +1,25 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using TMPro;
 
 public class WinScreen : MonoBehaviour
 {
-    [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text moneyText;
     [SerializeField] private TMP_Text perfectText;
 
     void Start()
     {
-        if (ScoreManager.Instance == null) return;
+        int perfects = ComboManager.Instance != null ? ComboManager.Instance.PerfectCount : 0;
 
-        scoreText.text = $"Score: {ScoreManager.Instance.LastRunScore:N0}";
-        perfectText.text = $"Perfects: {ScoreManager.Instance.LastRunPerfects}";
+        moneyText.text = $"Dinheiro: $ {Wallet.RunEarnings:N0}";
+        perfectText.text = $"Perfects: {perfects}";
     }
 
     public void ReturnToHub()
     {
-        ScoreManager.Instance?.ResetRun();
+        ComboManager.Instance?.ResetRun();
+        Wallet.ResetRun();
         GameManager.Instance?.ResetRooms();
-        SceneManager.LoadScene("Hub");
+        SceneTransition.Load("Hub");
     }
 
     public void QuitGame()

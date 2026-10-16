@@ -45,6 +45,7 @@ public class BeatManager : MonoBehaviour
     public bool IsInWindow => GetAccuracy() <= goodWindow;
     public float GoodWindow => goodWindow;
     public float PerfectWindow => perfectWindow;
+    public float BeatPhase => Mathf.Repeat((float)((_isPlaying ? Clock - _lastBeatTime : Clock) / BeatInterval), 1f);
 
     void Awake()
     {
